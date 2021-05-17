@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Robbin.urls'
+ROOT_URLCONF = '_robbin.urls'
 
 TEMPLATES = [
     {
@@ -75,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Robbin.wsgi.application'
+WSGI_APPLICATION = '_robbin.wsgi.application'
 
 
 # Database
