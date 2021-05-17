@@ -1,4 +1,12 @@
+from django import forms
+from app.models import Year
 from django.shortcuts import render
+from .models import (
+    Year
+)
+from .forms import (
+    YearForm
+)
 
 
 def home(request):
@@ -22,7 +30,16 @@ def client(request):
 
 
 def year(request):
-    context = {}
+    if request.method == 'POST':
+        form = YearForm(request.POST)
+        if form.is_valid():
+            form.save()
+    years = Year.objects.all()
+    form = YearForm()
+    context = {
+        'form': form,
+        'years': years
+    }
     return render(request, 'app/year.html', context)
 
 
