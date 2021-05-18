@@ -22,8 +22,9 @@
             <td>{{ cn.mobile }}</td>
             <td>{{ cn.email }}</td>
             <td>
-                <a class="btn btn-primary btn-sm m-2" href="#"><i class="fa fa-pencil"></i></a>
-                <a class="btn btn-danger btn-sm m-2" href="#"><i class="fa fa-trash"></i></a>
+                <a class="btn btn-primary btn-sm m-1" href="{% url 'contact_edit' cn.id %}"><i
+                        class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger btn-sm m-1" href="#"><i class="fa fa-trash"></i></a>
             </td>
         </tr>
         {% endfor %}

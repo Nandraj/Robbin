@@ -34,6 +34,18 @@ def contactCreate(request):
     return render(request, 'app/contact-create.html', context)
 
 
+def contactEdit(request, pk):
+    contact = Contact.objects.get(id=pk)
+    if request.method == 'POST':
+        form = ContactForm(request.POST, instance=contact)
+        if form.is_valid():
+            form.save()
+            return redirect('contact')
+    form = ContactForm(instance=contact)
+    context = {'form': form}
+    return render(request, 'app/contact-edit.html', context)
+
+
 def orgType(request):
     context = {}
     return render(request, 'app/org-type.html', context)
