@@ -1,5 +1,45 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h1>Org Type</h1>
+
+{% load widget_tweaks %}
+<div class="card card-body mt-4 mb-4">
+    <h3>Org Types</h3>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.org_type | add_class:"form-control"}}
+        </div>
+        <div class="form-group mt-2">
+            <button type="submit" class="btn btn-primary">
+                Add
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if organizations %}
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Org Type</th>
+            <th />
+        </tr>
+    </thead>
+    <tbody>
+        {% for org in organizations %}
+        <tr>
+            <td>{{ org.id }}</td>
+            <td>{{ org.org_type }}</td>
+            <td>
+                <a class="btn btn-primary btn-sm m-1" href="#"><i class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger btn-sm m-1" href="#"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
 {% endblock %}

@@ -3,10 +3,12 @@ from app.models import Year
 from django.shortcuts import render, redirect
 from .models import (
     Contact,
+    OrgType,
     Year
 )
 from .forms import (
     ContactForm,
+    OrgTypeForm,
     YearForm
 )
 
@@ -47,7 +49,16 @@ def contactEdit(request, pk):
 
 
 def orgType(request):
-    context = {}
+    if request.method == 'POST':
+        form = OrgTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+    organizations = OrgType.objects.all().order_by('-id')
+    form = OrgTypeForm()
+    context = {
+        'form': form,
+        'organizations': organizations,
+    }
     return render(request, 'app/org-type.html', context)
 
 
