@@ -1,6 +1,6 @@
 from django import forms
 from app.models import Year
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import (
     Year
 )
@@ -41,6 +41,18 @@ def year(request):
         'years': years
     }
     return render(request, 'app/year.html', context)
+
+
+def yearEdit(request, pk):
+    year = Year.objects.get(id=pk)
+    form = YearForm(instance=year)
+    if request.method == 'POST':
+        form = YearForm(request.POST, instance=year)
+        if form.is_valid():
+            form.save()
+            return redirect('year')
+    context = {'form': form}
+    return render(request, 'app/year-edit.html', context)
 
 
 def period(request):

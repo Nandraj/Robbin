@@ -31,7 +31,7 @@
             <td>{{ yr.id }}</td>
             <td>{{ yr.number }}</td>
             <td>
-                <button class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></button>
+                <a class="btn btn-primary btn-sm" href="{% url 'year_edit' yr.id %}"><i class="fa fa-pencil"></i></a>
                 <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
             </td>
         </tr>
