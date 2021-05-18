@@ -4,11 +4,13 @@ from django.shortcuts import render, redirect
 from .models import (
     Contact,
     OrgType,
+    Client,
     Year
 )
 from .forms import (
     ContactForm,
     OrgTypeForm,
+    ClientForm,
     YearForm
 )
 
@@ -63,8 +65,20 @@ def orgType(request):
 
 
 def client(request):
-    context = {}
+    clients = Client.objects.all().order_by('-id')
+    context = {'clients': clients}
     return render(request, 'app/client.html', context)
+
+
+def clientCreate(request):
+    if request.method == 'POST':
+        form = ClientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('client')
+    form = ClientForm()
+    context = {'form': form}
+    return render(request, 'app/client-create.html', context)
 
 
 def year(request):

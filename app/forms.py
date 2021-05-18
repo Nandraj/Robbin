@@ -3,6 +3,7 @@ from django.forms import ModelForm, fields
 from .models import (
     Contact,
     OrgType,
+    Client,
     Year
 )
 
@@ -22,4 +23,10 @@ class ContactForm(ModelForm):
 class OrgTypeForm(ModelForm):
     class Meta:
         model = OrgType
+        fields = '__all__'
+
+
+class ClientForm(ModelForm):
+    class Meta:
+        model = Client
         fields = '__all__'

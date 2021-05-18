@@ -15,4 +15,5 @@ urlpatterns = [
     path('year_edit/<str:pk>/', views.yearEdit, name='year_edit'),
     path('contact_create/', views.contactCreate, name='contact_create'),
     path('contact_edit/<str:pk>/', views.contactEdit, name='contact_edit'),
+    path('client_create/', views.clientCreate, name='client_create'),
 ]
