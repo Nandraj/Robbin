@@ -38,7 +38,7 @@ def contactCreate(request):
     return render(request, 'app/contact-create.html', context)
 
 
-def contactEdit(request, pk):
+def contactUpdate(request, pk):
     contact = Contact.objects.get(id=pk)
     if request.method == 'POST':
         form = ContactForm(request.POST, instance=contact)
@@ -47,7 +47,7 @@ def contactEdit(request, pk):
             return redirect('contact')
     form = ContactForm(instance=contact)
     context = {'form': form}
-    return render(request, 'app/contact-edit.html', context)
+    return render(request, 'app/contact-update.html', context)
 
 
 def orgType(request):
@@ -64,7 +64,7 @@ def orgType(request):
     return render(request, 'app/org-type.html', context)
 
 
-def orgTypeEdit(request, pk):
+def orgTypeUpdate(request, pk):
     org_type = OrgType.objects.get(id=pk)
     if request.method == 'POST':
         form = OrgTypeForm(request.POST, instance=org_type)
@@ -73,7 +73,7 @@ def orgTypeEdit(request, pk):
             return redirect('org_type')
     form = OrgTypeForm(instance=org_type)
     context = {'form': form}
-    return render(request, 'app/org-type-edit.html', context)
+    return render(request, 'app/org-type-update.html', context)
 
 
 def client(request):
@@ -93,7 +93,7 @@ def clientCreate(request):
     return render(request, 'app/client-create.html', context)
 
 
-def clientEdit(request, pk):
+def clientUpdate(request, pk):
     client = Client.objects.get(id=pk)
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=client)
@@ -102,7 +102,7 @@ def clientEdit(request, pk):
             return redirect('client')
     form = ClientForm(instance=client)
     context = {'form': form}
-    return render(request, 'app/client-edit.html', context)
+    return render(request, 'app/client-update.html', context)
 
 
 def year(request):
@@ -119,7 +119,7 @@ def year(request):
     return render(request, 'app/year.html', context)
 
 
-def yearEdit(request, pk):
+def yearUpdate(request, pk):
     year = Year.objects.get(id=pk)
     form = YearForm(instance=year)
     if request.method == 'POST':
@@ -128,7 +128,7 @@ def yearEdit(request, pk):
             form.save()
             return redirect('year')
     context = {'form': form}
-    return render(request, 'app/year-edit.html', context)
+    return render(request, 'app/year-update.html', context)
 
 
 # TODO:add delete func with common template which always return back to main page of fun e.g. if year deleted then return back to year/ page
