@@ -4,6 +4,8 @@
 
 {% load widget_tweaks %}
 <h3>Contacts</h3>
+
+{% if contacts %}
 <table class="table table-stripped">
     <thead>
         <tr>
@@ -30,6 +32,7 @@
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 
 <a class="btn btn-success btn-circle btn-lg" href="{% url 'contact_create' %}"><i class="fa fa-plus"></i></a>
 
