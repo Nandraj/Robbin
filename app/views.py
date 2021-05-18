@@ -93,6 +93,18 @@ def clientCreate(request):
     return render(request, 'app/client-create.html', context)
 
 
+def clientEdit(request, pk):
+    client = Client.objects.get(id=pk)
+    if request.method == 'POST':
+        form = ClientForm(request.POST, instance=client)
+        if form.is_valid():
+            form.save()
+            return redirect('client')
+    form = ClientForm(instance=client)
+    context = {'form': form}
+    return render(request, 'app/client-edit.html', context)
+
+
 def year(request):
     if request.method == 'POST':
         form = YearForm(request.POST)
