@@ -2,9 +2,11 @@ from django import forms
 from app.models import Year
 from django.shortcuts import render, redirect
 from .models import (
+    Contact,
     Year
 )
 from .forms import (
+    ContactForm,
     YearForm
 )
 
@@ -15,8 +17,21 @@ def home(request):
 
 
 def contact(request):
-    context = {}
+    contacts = Contact.objects.all().order_by('-id')
+    context = {'contacts': contacts}
     return render(request, 'app/contact.html', context)
+
+
+def contactCreate(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('contact')
+    # TODO: Show error if form is not valid on contact creation page
+    form = ContactForm()
+    context = {'form': form}
+    return render(request, 'app/contact-create.html', context)
 
 
 def orgType(request):
@@ -53,6 +68,9 @@ def yearEdit(request, pk):
             return redirect('year')
     context = {'form': form}
     return render(request, 'app/year-edit.html', context)
+
+
+# TODO:add delete func with common template which always return back to main page of fun e.g. if year deleted then return back to year/ page
 
 
 def period(request):
