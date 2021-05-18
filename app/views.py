@@ -34,7 +34,7 @@ def year(request):
         form = YearForm(request.POST)
         if form.is_valid():
             form.save()
-    years = Year.objects.all()
+    years = Year.objects.all().order_by('-id')
     form = YearForm()
     context = {
         'form': form,
