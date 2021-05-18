@@ -1,13 +1,14 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
+
 {% load widget_tweaks %}
 <div class="card card-body mt-4 mb-4">
-    <h3>Update Year</h3>
+    <h3>Update Org Type</h3>
     <form action="" method="POST">
         {% csrf_token %}
         <div class="form-group">
-            {{ form.number | add_class:"form-control"}}
+            {{ form.org_type | add_class:"form-control"}}
         </div>
         <div class="form-group mt-2">
             <button type="submit" class="btn btn-primary">

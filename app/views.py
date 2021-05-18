@@ -64,6 +64,18 @@ def orgType(request):
     return render(request, 'app/org-type.html', context)
 
 
+def orgTypeEdit(request, pk):
+    org_type = OrgType.objects.get(id=pk)
+    if request.method == 'POST':
+        form = OrgTypeForm(request.POST, instance=org_type)
+        if form.is_valid():
+            form.save()
+            return redirect('org_type')
+    form = OrgTypeForm(instance=org_type)
+    context = {'form': form}
+    return render(request, 'app/org-type-edit.html', context)
+
+
 def client(request):
     clients = Client.objects.all().order_by('-id')
     context = {'clients': clients}
