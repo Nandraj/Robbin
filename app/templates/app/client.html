@@ -23,9 +23,24 @@
             <td>{{ cl.id }}</td>
             <td>{{ cl.name }}</td>
             <!-- TODO: Show first contact name, mobile and email -->
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+            <td>
+                {% for ct in cl.getContacts %}
+                <a href="{% url 'contact_update' ct.id %}">{{ ct.name }}</a>
+                <br>
+                {% endfor %}
+            </td>
+            <td>
+                {% for ct in cl.getContacts %}
+                {{ ct.mobile }} <a href=""></a>
+                <br>
+                {% endfor %}
+            </td>
+            <td>
+                {% for ct in cl.getContacts %}
+                {{ ct.email }}
+                <br>
+                {% endfor %}
+            </td>
             <td>
                 <!-- TODO: Add view client details page (read-only) -->
                 <a class="btn btn-info btn-sm m-1" style="color: white;" href="#"><i class="fa fa-eye"></i></a>

@@ -40,6 +40,9 @@ class Client(models.Model):
     def __str__(self):
         return self.name
 
+    def getContacts(self):
+        return self.contact.all()
+
 
 class Year(models.Model):
     number = models.CharField(max_length=4, unique=True)
