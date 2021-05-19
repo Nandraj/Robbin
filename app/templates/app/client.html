@@ -21,7 +21,17 @@
         {% for cl in clients %}
         <tr>
             <td>{{ cl.id }}</td>
-            <td>{{ cl.name }}</td>
+            <td>
+                {{ cl.name }} <span style="font-size:small;">({{ cl.org_type }})</span>
+                <br>
+                <span style="font-size:small;">
+                    DOB/I: {{ cl.inco_date}},
+                    Mob: {{ cl.mobile }},
+                    Email: <a href="mailto:{{cl.email}}">{{ cl.email }}</a> <br>
+                    Pan: {{ cl.pan }},
+                    GSTIN: {{ cl.gstin }}
+                </span>
+            </td>
             <!-- TODO: Show first contact name, mobile and email -->
             <td>
                 {% for ct in cl.getContacts %}
