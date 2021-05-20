@@ -3,6 +3,7 @@ from app.models import Year
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .models import (
     Contact,
     OrgType,
@@ -42,17 +43,20 @@ def logoutUser(request):
     return redirect('login')
 
 
+@login_required(login_url='login')
 def home(request):
     context = {}
     return render(request, 'app/home.html', context)
 
 
+@login_required(login_url='login')
 def contact(request):
     contacts = Contact.objects.all().order_by('-id')
     context = {'contacts': contacts}
     return render(request, 'app/contact.html', context)
 
 
+@login_required(login_url='login')
 def contactCreate(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -65,6 +69,7 @@ def contactCreate(request):
     return render(request, 'app/contact-create.html', context)
 
 
+@login_required(login_url='login')
 def contactUpdate(request, pk):
     contact = Contact.objects.get(id=pk)
     if request.method == 'POST':
@@ -77,6 +82,7 @@ def contactUpdate(request, pk):
     return render(request, 'app/contact-update.html', context)
 
 
+@login_required(login_url='login')
 def contactRemove(request, pk):
     contact = Contact.objects.get(id=pk)
     if request.method == 'POST':
@@ -89,6 +95,7 @@ def contactRemove(request, pk):
     return render(request, 'app/delete.html', context)
 
 
+@login_required(login_url='login')
 def orgType(request):
     if request.method == 'POST':
         form = OrgTypeForm(request.POST)
@@ -103,6 +110,7 @@ def orgType(request):
     return render(request, 'app/org-type.html', context)
 
 
+@login_required(login_url='login')
 def orgTypeUpdate(request, pk):
     org_type = OrgType.objects.get(id=pk)
     if request.method == 'POST':
@@ -115,6 +123,7 @@ def orgTypeUpdate(request, pk):
     return render(request, 'app/org-type-update.html', context)
 
 
+@login_required(login_url='login')
 def orgTypeRemove(request, pk):
     org_type = OrgType.objects.get(id=pk)
     if request.method == 'POST':
@@ -127,12 +136,14 @@ def orgTypeRemove(request, pk):
     return render(request, 'app/delete.html', context)
 
 
+@login_required(login_url='login')
 def client(request):
     clients = Client.objects.all().order_by('-id')
     context = {'clients': clients}
     return render(request, 'app/client.html', context)
 
 
+@login_required(login_url='login')
 def clientCreate(request):
     if request.method == 'POST':
         form = ClientForm(request.POST)
@@ -144,6 +155,7 @@ def clientCreate(request):
     return render(request, 'app/client-create.html', context)
 
 
+@login_required(login_url='login')
 def clientUpdate(request, pk):
     client = Client.objects.get(id=pk)
     if request.method == 'POST':
@@ -156,6 +168,7 @@ def clientUpdate(request, pk):
     return render(request, 'app/client-update.html', context)
 
 
+@login_required(login_url='login')
 def clientRemove(request, pk):
     client = Client.objects.get(id=pk)
     if request.method == 'POST':
@@ -168,6 +181,7 @@ def clientRemove(request, pk):
     return render(request, 'app/delete.html', context)
 
 
+@login_required(login_url='login')
 def year(request):
     if request.method == 'POST':
         form = YearForm(request.POST)
@@ -182,6 +196,7 @@ def year(request):
     return render(request, 'app/year.html', context)
 
 
+@login_required(login_url='login')
 def yearUpdate(request, pk):
     year = Year.objects.get(id=pk)
     form = YearForm(instance=year)
@@ -194,6 +209,7 @@ def yearUpdate(request, pk):
     return render(request, 'app/year-update.html', context)
 
 
+@login_required(login_url='login')
 def yearRemove(request, pk):
     year = Year.objects.get(id=pk)
     if request.method == 'POST':
@@ -206,6 +222,7 @@ def yearRemove(request, pk):
     return render(request, 'app/delete.html', context)
 
 
+@login_required(login_url='login')
 def period(request):
     if request.method == 'POST':
         form = PeriodForm(request.POST)
@@ -220,6 +237,7 @@ def period(request):
     return render(request, 'app/period.html', context)
 
 
+@login_required(login_url='login')
 def periodUpdate(request, pk):
     period = Period.objects.get(id=pk)
     if request.method == 'POST':
@@ -232,6 +250,7 @@ def periodUpdate(request, pk):
     return render(request, 'app/period-update.html', context)
 
 
+@login_required(login_url='login')
 def periodRemove(request, pk):
     period = Period.objects.get(id=pk)
     if request.method == 'POST':
@@ -244,6 +263,7 @@ def periodRemove(request, pk):
     return render(request, 'app/delete.html', context)
 
 
+@login_required(login_url='login')
 def task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -258,6 +278,7 @@ def task(request):
     return render(request, 'app/task.html', context)
 
 
+@login_required(login_url='login')
 def taskUpdate(request, pk):
     task = Task.objects.get(id=pk)
     if request.method == 'POST':
@@ -270,6 +291,7 @@ def taskUpdate(request, pk):
     return render(request, 'app/task-update.html', context)
 
 
+@login_required(login_url='login')
 def taskRemove(request, pk):
     task = Task.objects.get(id=pk)
     if request.method == 'POST':
@@ -282,6 +304,7 @@ def taskRemove(request, pk):
     return render(request, 'app/delete.html', context)
 
 
+@login_required(login_url='login')
 def status(request):
     if request.method == 'POST':
         form = StatusForm(request.POST)
@@ -296,6 +319,7 @@ def status(request):
     return render(request, 'app/status.html', context)
 
 
+@login_required(login_url='login')
 def statusUpdate(request, pk):
     status = Status.objects.get(id=pk)
     if request.method == 'POST':
@@ -308,6 +332,7 @@ def statusUpdate(request, pk):
     return render(request, 'app/status-update.html', context)
 
 
+@login_required(login_url='login')
 def statusRemove(request, pk):
     status = Status.objects.get(id=pk)
     if request.method == 'POST':
@@ -320,11 +345,13 @@ def statusRemove(request, pk):
     return render(request, 'app/delete.html', context)
 
 
+@login_required(login_url='login')
 def employee(request):
     context = {}
     return render(request, 'app/employee.html', context)
 
 
+@login_required(login_url='login')
 def assignment(request):
     context = {}
     return render(request, 'app/assignment.html', context)
