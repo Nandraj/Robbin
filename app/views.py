@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from .models import (
     Contact,
     OrgType,
@@ -13,6 +13,7 @@ from .models import (
     Period,
     Task,
     Status,
+    Employee,
 )
 from .forms import (
     ContactForm,
@@ -23,7 +24,29 @@ from .forms import (
     TaskForm,
     StatusForm,
     GroupForm,
+    CreateEmployeeForm,
 )
+
+
+def employeeCreate(request):
+    if request.method == 'POST':
+        form = CreateEmployeeForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            group_input = form.cleaned_data.get("group")
+            name = form.cleaned_data.get("name")
+            mobile = form.cleaned_data.get("name")
+            group = Group.objects.get(name=group_input)
+            user.groups.add(group)
+            Employee.objects.create(
+                user=user,
+                name=name,
+                mobile=mobile
+            )
+            return redirect('employee')
+    form = CreateEmployeeForm()
+    context = {'form': form}
+    return render(request, 'app/employee-create.html', context)
 
 
 def groupPage(request):
@@ -361,7 +384,6 @@ def statusRemove(request, pk):
     return render(request, 'app/delete.html', context)
 
 
-@login_required(login_url='login')
 def employee(request):
     context = {}
     return render(request, 'app/employee.html', context)
