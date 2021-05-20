@@ -88,6 +88,18 @@ def orgTypeUpdate(request, pk):
     return render(request, 'app/org-type-update.html', context)
 
 
+def orgTypeRemove(request, pk):
+    org_type = OrgType.objects.get(id=pk)
+    if request.method == 'POST':
+        org_type.delete()
+        return redirect('org_type')
+    context = {
+        'table': 'Org Type',
+        'item': org_type.org_type
+    }
+    return render(request, 'app/delete.html', context)
+
+
 def client(request):
     clients = Client.objects.all().order_by('-id')
     context = {'clients': clients}
