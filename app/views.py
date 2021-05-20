@@ -5,13 +5,15 @@ from .models import (
     Contact,
     OrgType,
     Client,
-    Year
+    Year,
+    Period,
 )
 from .forms import (
     ContactForm,
     OrgTypeForm,
     ClientForm,
-    YearForm
+    YearForm,
+    PeriodForm,
 )
 
 
@@ -180,8 +182,41 @@ def yearRemove(request, pk):
 
 
 def period(request):
-    context = {}
+    if request.method == 'POST':
+        form = PeriodForm(request.POST)
+        if form.is_valid():
+            form.save()
+    periods = Period.objects.all().order_by('-id')
+    form = PeriodForm()
+    context = {
+        'periods': periods,
+        'form': form
+    }
     return render(request, 'app/period.html', context)
+
+
+def periodUpdate(request, pk):
+    period = Period.objects.get(id=pk)
+    if request.method == 'POST':
+        form = PeriodForm(request.POST, instance=period)
+        if form.is_valid():
+            form.save()
+            return redirect('period')
+    form = PeriodForm(instance=period)
+    context = {'form': form}
+    return render(request, 'app/period-update.html', context)
+
+
+def periodRemove(request, pk):
+    period = Period.objects.get(id=pk)
+    if request.method == 'POST':
+        period.delete()
+        return redirect('period')
+    context = {
+        'table': 'Period',
+        'item': period.period
+    }
+    return render(request, 'app/delete.html', context)
 
 
 def status(request):

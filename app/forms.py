@@ -1,10 +1,10 @@
-from django.db import models
-from django.forms import ModelForm, fields
+from django.forms import ModelForm
 from .models import (
     Contact,
     OrgType,
     Client,
-    Year
+    Year,
+    Period,
 )
 
 
@@ -29,4 +29,10 @@ class OrgTypeForm(ModelForm):
 class ClientForm(ModelForm):
     class Meta:
         model = Client
+        fields = '__all__'
+
+
+class PeriodForm(ModelForm):
+    class Meta:
+        model = Period
         fields = '__all__'
