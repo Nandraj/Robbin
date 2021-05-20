@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from .models import (
     Contact,
     OrgType,
@@ -21,7 +22,22 @@ from .forms import (
     PeriodForm,
     TaskForm,
     StatusForm,
+    GroupForm,
 )
+
+
+def groupPage(request):
+    if request.method == 'POST':
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            form.save()
+    groups = Group.objects.all().order_by('-id')
+    form = GroupForm()
+    context = {
+        'form': form,
+        'groups': groups,
+    }
+    return render(request, 'app/group.html', context)
 
 
 def loginPage(request):

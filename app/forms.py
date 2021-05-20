@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django.contrib.auth.models import Group
 from .models import (
     Contact,
     OrgType,
@@ -49,4 +50,10 @@ class TaskForm(ModelForm):
 class StatusForm(ModelForm):
     class Meta:
         model = Status
+        fields = '__all__'
+
+
+class GroupForm(ModelForm):
+    class Meta:
+        model = Group
         fields = '__all__'

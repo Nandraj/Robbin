@@ -1,0 +1,45 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+{% load widget_tweaks %}
+<div class="card card-body mt-4 mb-4">
+    <h3>Group</h3>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.name | add_class:"form-control"}}
+        </div>
+        <div class="form-group mt-2">
+            <button type="submit" class="btn btn-primary">
+                Add
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if groups %}
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Group</th>
+            <th />
+        </tr>
+    </thead>
+    <tbody>
+        {% for grp in groups %}
+        <tr>
+            <td>{{ grp.id }}</td>
+            <td>{{ grp.name }}</td>
+            <td>
+                <a class="btn btn-primary btn-sm m-1" href=""><i class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger btn-sm m-1" href=""><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

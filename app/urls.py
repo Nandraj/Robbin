@@ -31,4 +31,5 @@ urlpatterns = [
     path('task_remove/<str:pk>/', views.taskRemove, name='task_remove'),
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),
+    path('group/', views.groupPage, name='group'),
 ]
