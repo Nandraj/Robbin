@@ -6,24 +6,39 @@
 
 {% block content %}
 
-{% load widget_tweaks %}
-<br>
-<h1>Login</h1>
-<form action="" method="POST">
-    {% csrf_token %}
-    <div class="form-group">
-        <label>Username</label>
-        <input type="text" name="username" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-primary mt-2">Submit</button>
-</form>
+<style>
+    body {
+        background-color: #e3f2fd;
+    }
+</style>
 
-{% for message in messages %}
-<p id="messages">{{message}}</p>
-{% endfor %}
+<br>
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <div class="card card-body border-secondary mt-4 mb-4">
+            <div class="text-center">
+                <h3>Robbin</h3>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control" required>
+                </div>
+                <div class="form-group mt-2">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-2">Login</button>
+                </div>
+            </form>
+
+            {% for message in messages %}
+            <p id="messages">{{message}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}
