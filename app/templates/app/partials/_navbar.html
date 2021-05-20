@@ -59,7 +59,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">{{request.user}}</a>
+                            aria-haspopup="true" aria-expanded="false">{{request.user | title}}</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
                             style="background-color: #e3f2fd;">
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
