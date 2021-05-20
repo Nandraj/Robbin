@@ -35,7 +35,7 @@ def employeeCreate(request):
             user = form.save()
             group_input = form.cleaned_data.get("group")
             name = form.cleaned_data.get("name")
-            mobile = form.cleaned_data.get("name")
+            mobile = form.cleaned_data.get("mobile")
             group = Group.objects.get(name=group_input)
             user.groups.add(group)
             Employee.objects.create(
