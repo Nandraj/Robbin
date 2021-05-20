@@ -7,6 +7,7 @@ from .models import (
     Client,
     Year,
     Period,
+    Task,
     Status,
 )
 from .forms import (
@@ -15,6 +16,7 @@ from .forms import (
     ClientForm,
     YearForm,
     PeriodForm,
+    TaskForm,
     StatusForm,
 )
 
@@ -217,6 +219,44 @@ def periodRemove(request, pk):
     context = {
         'table': 'Period',
         'item': period.period
+    }
+    return render(request, 'app/delete.html', context)
+
+
+def task(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+    tasks = Task.objects.all().order_by('-id')
+    form = TaskForm()
+    context = {
+        'tasks': tasks,
+        'form': form
+    }
+    return render(request, 'app/task.html', context)
+
+
+def taskUpdate(request, pk):
+    task = Task.objects.get(id=pk)
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('task')
+    form = TaskForm(instance=task)
+    context = {'form': form}
+    return render(request, 'app/task-update.html', context)
+
+
+def taskRemove(request, pk):
+    task = Task.objects.get(id=pk)
+    if request.method == 'POST':
+        task.delete()
+        return redirect('task')
+    context = {
+        'table': 'Task',
+        'item': task.task
     }
     return render(request, 'app/delete.html', context)
 

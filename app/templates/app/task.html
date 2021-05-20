@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+{% load widget_tweaks %}
+<div class="card card-body mt-4 mb-4">
+    <h3>Task</h3>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.task | add_class:"form-control"}}
+        </div>
+        <div class="form-group mt-2">
+            <button type="submit" class="btn btn-primary">
+                Add
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if tasks %}
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Task</th>
+            <th />
+        </tr>
+    </thead>
+    <tbody>
+        {% for tk in tasks %}
+        <tr>
+            <td>{{ tk.id }}</td>
+            <td>{{ tk.task }}</td>
+            <td>
+                <a class="btn btn-primary btn-sm m-1" href="{% url 'task_update' tk.id %}"><i
+                        class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger btn-sm m-1" href="{% url 'task_remove' tk.id %}"><i
+                        class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

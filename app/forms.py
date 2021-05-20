@@ -5,6 +5,7 @@ from .models import (
     Client,
     Year,
     Period,
+    Task,
     Status,
 )
 
@@ -36,6 +37,12 @@ class ClientForm(ModelForm):
 class PeriodForm(ModelForm):
     class Meta:
         model = Period
+        fields = '__all__'
+
+
+class TaskForm(ModelForm):
+    class Meta:
+        model = Task
         fields = '__all__'
 
 

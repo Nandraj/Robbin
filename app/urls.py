@@ -26,4 +26,7 @@ urlpatterns = [
     path('period_remove/<str:pk>/', views.periodRemove, name='period_remove'),
     path('status_update/<str:pk>/', views.statusUpdate, name='status_update'),
     path('status_remove/<str:pk>/', views.statusRemove, name='status_remove'),
+    path('task/', views.task, name='task'),
+    path('task_update/<str:pk>/', views.taskUpdate, name='task_update'),
+    path('task_remove/<str:pk>/', views.taskRemove, name='task_remove'),
 ]
