@@ -131,7 +131,16 @@ def yearUpdate(request, pk):
     return render(request, 'app/year-update.html', context)
 
 
-# TODO:add delete func with common template which always return back to main page of fun e.g. if year deleted then return back to year/ page
+def yearRemove(request, pk):
+    year = Year.objects.get(id=pk)
+    if request.method == 'POST':
+        year.delete()
+        return redirect('year')
+    context = {
+        'table': 'Year',
+        'item': year.number
+    }
+    return render(request, 'app/delete.html', context)
 
 
 def period(request):
