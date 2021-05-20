@@ -50,6 +50,18 @@ def contactUpdate(request, pk):
     return render(request, 'app/contact-update.html', context)
 
 
+def contactRemove(request, pk):
+    contact = Contact.objects.get(id=pk)
+    if request.method == 'POST':
+        contact.delete()
+        return redirect('contact')
+    context = {
+        'table': 'Contact',
+        'item': contact.name
+    }
+    return render(request, 'app/delete.html', context)
+
+
 def orgType(request):
     if request.method == 'POST':
         form = OrgTypeForm(request.POST)
