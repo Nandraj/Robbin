@@ -21,4 +21,5 @@ urlpatterns = [
     path('year_remove/<str:pk>/', views.yearRemove, name='year_remove'),
     path('contact_remove/<str:pk>/', views.contactRemove, name='contact_remove'),
     path('org_type_remove/<str:pk>/', views.orgTypeRemove, name='org_type_remove'),
+    path('client_remove/<str:pk>/', views.clientRemove, name='client_remove'),
 ]

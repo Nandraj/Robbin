@@ -27,7 +27,12 @@
                 <span style="font-size:small;">
                     DOB/I: {{ cl.inco_date}},
                     Mob: {{ cl.mobile }},
-                    Email: <a href="mailto:{{cl.email}}">{{ cl.email }}</a> <br>
+                    Email: {% if cl.email == None %}
+                    {{ cl.email }}
+                    {% else %}
+                    <a href="mailto:{{cl.email}}">{{ cl.email }}</a>
+                    {% endif %}
+                    <br>
                     Pan: {{ cl.pan }},
                     GSTIN: {{ cl.gstin }}
                 </span>
@@ -56,7 +61,8 @@
                 <a class="btn btn-info btn-sm m-1" style="color: white;" href="#"><i class="fa fa-eye"></i></a>
                 <a class="btn btn-primary btn-sm m-1" href="{% url 'client_update' cl.id %}"><i
                         class="fa fa-pencil"></i></a>
-                <a class="btn btn-danger btn-sm m-1" href="#"><i class="fa fa-trash"></i></a>
+                <a class="btn btn-danger btn-sm m-1" href="{% url 'client_remove' cl.id %}"><i
+                        class="fa fa-trash"></i></a>
             </td>
         </tr>
         {% endfor %}

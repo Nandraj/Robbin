@@ -129,6 +129,18 @@ def clientUpdate(request, pk):
     return render(request, 'app/client-update.html', context)
 
 
+def clientRemove(request, pk):
+    client = Client.objects.get(id=pk)
+    if request.method == 'POST':
+        client.delete()
+        return redirect('client')
+    context = {
+        'table': 'Client',
+        'item': client.name
+    }
+    return render(request, 'app/delete.html', context)
+
+
 def year(request):
     if request.method == 'POST':
         form = YearForm(request.POST)
