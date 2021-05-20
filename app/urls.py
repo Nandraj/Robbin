@@ -24,4 +24,6 @@ urlpatterns = [
     path('client_remove/<str:pk>/', views.clientRemove, name='client_remove'),
     path('period_update/<str:pk>/', views.periodUpdate, name='period_update'),
     path('period_remove/<str:pk>/', views.periodRemove, name='period_remove'),
+    path('status_update/<str:pk>/', views.statusUpdate, name='status_update'),
+    path('status_remove/<str:pk>/', views.statusRemove, name='status_remove'),
 ]

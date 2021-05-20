@@ -1,5 +1,46 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h1>Status</h1>
+{% load widget_tweaks %}
+<div class="card card-body mt-4 mb-4">
+    <h3>Status</h3>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.status | add_class:"form-control"}}
+        </div>
+        <div class="form-group mt-2">
+            <button type="submit" class="btn btn-primary">
+                Add
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if statuses %}
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Status</th>
+            <th />
+        </tr>
+    </thead>
+    <tbody>
+        {% for st in statuses %}
+        <tr>
+            <td>{{ st.id }}</td>
+            <td>{{ st.status }}</td>
+            <td>
+                <a class="btn btn-primary btn-sm m-1" href="{% url 'status_update' st.id %}"><i
+                        class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger btn-sm m-1" href="{% url 'status_remove' st.id %}"><i
+                        class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
 {% endblock %}

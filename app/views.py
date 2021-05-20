@@ -7,6 +7,7 @@ from .models import (
     Client,
     Year,
     Period,
+    Status,
 )
 from .forms import (
     ContactForm,
@@ -14,6 +15,7 @@ from .forms import (
     ClientForm,
     YearForm,
     PeriodForm,
+    StatusForm,
 )
 
 
@@ -220,8 +222,41 @@ def periodRemove(request, pk):
 
 
 def status(request):
-    context = {}
+    if request.method == 'POST':
+        form = StatusForm(request.POST)
+        if form.is_valid():
+            form.save()
+    statuses = Status.objects.all().order_by('-id')
+    form = StatusForm()
+    context = {
+        'statuses': statuses,
+        'form': form
+    }
     return render(request, 'app/status.html', context)
+
+
+def statusUpdate(request, pk):
+    status = Status.objects.get(id=pk)
+    if request.method == 'POST':
+        form = StatusForm(request.POST, instance=status)
+        if form.is_valid():
+            form.save()
+            return redirect('status')
+    form = StatusForm(instance=status)
+    context = {'form': form}
+    return render(request, 'app/status-update.html', context)
+
+
+def statusRemove(request, pk):
+    status = Status.objects.get(id=pk)
+    if request.method == 'POST':
+        status.delete()
+        return redirect('status')
+    context = {
+        'table': 'Status',
+        'item': status.status
+    }
+    return render(request, 'app/delete.html', context)
 
 
 def employee(request):
