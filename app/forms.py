@@ -67,6 +67,7 @@ class CreateEmployeeForm(UserCreationForm):
         label='Group', queryset=Group.objects.all(), required=True)
     name = forms.CharField(label='Name', max_length=50, required=True)
     mobile = forms.CharField(label='Mobile', max_length=50)
+    email = forms.EmailField(max_length=50, required=True)
 
     class Meta:
         model = User
