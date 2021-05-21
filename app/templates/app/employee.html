@@ -1,5 +1,40 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h1>Employee</h1>
+
+{% load widget_tweaks %}
+<h3>Employees</h3>
+
+{% if employees %}
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th />
+        </tr>
+    </thead>
+    <tbody>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp.id }}</td>
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.mobile }}</td>
+            <td>{{ emp.user.email }}</td>
+            <td>{{ emp.user.username }}</td>
+            <td>
+                <a class="btn btn-primary btn-sm m-1" href="#"><i class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger btn-sm m-1" href="#"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<a class="btn btn-success btn-circle btn-lg" href="{% url 'employee_create' %}"><i class="fa fa-plus"></i></a>
+
 {% endblock %}

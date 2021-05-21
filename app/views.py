@@ -29,28 +29,6 @@ from .forms import (
 
 
 @login_required(login_url='login')
-def employeeCreate(request):
-    if request.method == 'POST':
-        form = CreateEmployeeForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            group_input = form.cleaned_data.get("group")
-            name = form.cleaned_data.get("name")
-            mobile = form.cleaned_data.get("mobile")
-            group = Group.objects.get(name=group_input)
-            user.groups.add(group)
-            Employee.objects.create(
-                user=user,
-                name=name,
-                mobile=mobile
-            )
-            return redirect('employee')
-    form = CreateEmployeeForm()
-    context = {'form': form}
-    return render(request, 'app/employee-create.html', context)
-
-
-@login_required(login_url='login')
 def groupPage(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)
@@ -414,8 +392,31 @@ def statusRemove(request, pk):
 
 @login_required(login_url='login')
 def employee(request):
-    context = {}
+    employees = Employee.objects.all().order_by('-id')
+    context = {'employees': employees}
     return render(request, 'app/employee.html', context)
+
+
+@login_required(login_url='login')
+def employeeCreate(request):
+    if request.method == 'POST':
+        form = CreateEmployeeForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            group_input = form.cleaned_data.get("group")
+            name = form.cleaned_data.get("name")
+            mobile = form.cleaned_data.get("mobile")
+            group = Group.objects.get(name=group_input)
+            user.groups.add(group)
+            Employee.objects.create(
+                user=user,
+                name=name,
+                mobile=mobile
+            )
+            return redirect('employee')
+    form = CreateEmployeeForm()
+    context = {'form': form}
+    return render(request, 'app/employee-create.html', context)
 
 
 @login_required(login_url='login')
