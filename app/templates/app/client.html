@@ -2,7 +2,6 @@
 
 {% block content %}
 
-{% load widget_tweaks %}
 <h3>Clients</h3>
 
 {% if clients %}
@@ -46,7 +45,11 @@
             </td>
             <td>
                 {% for ct in cl.getContacts %}
-                {{ ct.mobile }} <a href=""></a>
+                <a class="btn btn-sm btn-success px-1 py-0 mb-1"
+                    href="https://api.whatsapp.com/send?phone=+91{{ ct.mobile}}" title="whatsapp" target="_blank">
+                    <i class="fa fa-whatsapp"></i>
+                </a>
+                {{ ct.mobile }}
                 <br>
                 {% endfor %}
             </td>
