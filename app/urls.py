@@ -33,4 +33,6 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
     path('group/', views.groupPage, name='group'),
     path('employee_create/', views.employeeCreate, name='employee_create'),
+    path('group_update/<str:pk>/', views.groupUpdate, name='group_update'),
+    path('group_remove/<str:pk>/', views.groupRemove, name='group_remove'),
 ]

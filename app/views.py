@@ -28,6 +28,7 @@ from .forms import (
 )
 
 
+@login_required(login_url='login')
 def employeeCreate(request):
     if request.method == 'POST':
         form = CreateEmployeeForm(request.POST)
@@ -49,6 +50,7 @@ def employeeCreate(request):
     return render(request, 'app/employee-create.html', context)
 
 
+@login_required(login_url='login')
 def groupPage(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)
@@ -61,6 +63,32 @@ def groupPage(request):
         'groups': groups,
     }
     return render(request, 'app/group.html', context)
+
+
+@login_required(login_url='login')
+def groupUpdate(request, pk):
+    group = Group.objects.get(id=pk)
+    if request.method == 'POST':
+        form = GroupForm(request.POST, instance=group)
+        if form.is_valid():
+            form.save()
+            return redirect('group')
+    form = GroupForm(instance=group)
+    context = {'form': form}
+    return render(request, 'app/group-update.html', context)
+
+
+@login_required(login_url='login')
+def groupRemove(request, pk):
+    group = Group.objects.get(id=pk)
+    if request.method == 'POST':
+        group.delete()
+        return redirect('group')
+    context = {
+        'table': 'Group',
+        'item': group.name
+    }
+    return render(request, 'app/delete.html', context)
 
 
 def loginPage(request):
@@ -384,6 +412,7 @@ def statusRemove(request, pk):
     return render(request, 'app/delete.html', context)
 
 
+@login_required(login_url='login')
 def employee(request):
     context = {}
     return render(request, 'app/employee.html', context)

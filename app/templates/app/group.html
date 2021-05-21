@@ -33,9 +33,10 @@
             <td>{{ grp.id }}</td>
             <td>{{ grp.name }}</td>
             <td>
-                <!-- TODO: Add group delete and edit func -->
-                <a class="btn btn-primary btn-sm m-1" href=""><i class="fa fa-pencil"></i></a>
-                <a class="btn btn-danger btn-sm m-1" href=""><i class="fa fa-trash"></i></a>
+                <a class="btn btn-primary btn-sm m-1" href="{% url 'group_update' grp.id %}"><i
+                        class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger btn-sm m-1" href="{% url 'group_remove' grp.id %}"><i
+                        class="fa fa-trash"></i></a>
             </td>
         </tr>
         {% endfor %}
