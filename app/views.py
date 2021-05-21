@@ -204,6 +204,14 @@ def clientCreate(request):
 
 
 @login_required(login_url='login')
+def clientView(request, pk):
+    client = Client.objects.get(id=pk)
+    form = ClientForm(instance=client)
+    context = {'form': form}
+    return render(request, 'app/client-view.html', context)
+
+
+@login_required(login_url='login')
 def clientUpdate(request, pk):
     client = Client.objects.get(id=pk)
     if request.method == 'POST':

@@ -37,4 +37,5 @@ urlpatterns = [
     path('group_remove/<str:pk>/', views.groupRemove, name='group_remove'),
     path('employee_remove/<str:pk>/',
          views.employeeRemove, name='employee_remove'),
+    path('client_view/<str:pk>/', views.clientView, name='client_view'),
 ]
