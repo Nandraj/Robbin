@@ -420,6 +420,20 @@ def employeeCreate(request):
 
 
 @login_required(login_url='login')
+def employeeRemove(request, pk):
+    employee = Employee.objects.get(id=pk)
+    user = employee.user
+    if request.method == 'POST':
+        user.delete()
+        return redirect('employee')
+    context = {
+        'table': 'Employee',
+        'item': employee.name
+    }
+    return render(request, 'app/delete.html', context)
+
+
+@login_required(login_url='login')
 def assignment(request):
     context = {}
     return render(request, 'app/assignment.html', context)

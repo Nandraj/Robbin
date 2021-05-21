@@ -35,4 +35,6 @@ urlpatterns = [
     path('employee_create/', views.employeeCreate, name='employee_create'),
     path('group_update/<str:pk>/', views.groupUpdate, name='group_update'),
     path('group_remove/<str:pk>/', views.groupRemove, name='group_remove'),
+    path('employee_remove/<str:pk>/',
+         views.employeeRemove, name='employee_remove'),
 ]
