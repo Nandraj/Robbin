@@ -11,6 +11,7 @@ from .models import (
     Task,
     Status,
     Employee,
+    Assignment,
 )
 
 
@@ -85,3 +86,9 @@ class UpdateEmployeeForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'group', 'name', 'mobile')
+
+
+class AssignmentForm(ModelForm):
+    class Meta:
+        model = Assignment
+        fields = '__all__'

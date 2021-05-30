@@ -15,6 +15,7 @@ from .models import (
     Task,
     Status,
     Employee,
+    Assignment,
 )
 from .forms import (
     ContactForm,
@@ -27,6 +28,7 @@ from .forms import (
     GroupForm,
     CreateEmployeeForm,
     UpdateEmployeeForm,
+    AssignmentForm,
 )
 from .decorators import (
     admin_only
@@ -523,6 +525,51 @@ def assignment(request):
             employee__name=request.user.employee.name).order_by('-id')
     context = {'assignments': assignments}
     return render(request, 'app/assignment.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def assignmentCreate(request):
+    if request.method == 'POST':
+        form = AssignmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('assignment_create')
+    form = AssignmentForm(initial={
+        'status': Status.objects.first().id,
+        'year': Year.objects.first().id
+    })
+    context = {'form': form}
+    return render(request, 'app/assignment-create.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def assignmentUpdate(request, pk):
+    assignment = Assignment.objects.get(id=pk)
+    if request.method == 'POST':
+        form = AssignmentForm(request.POST, instance=assignment)
+        if form.is_valid():
+            form.save()
+            return redirect('assignment')
+    form = AssignmentForm(instance=assignment)
+    context = {'form': form}
+    return render(request, 'app/assignment-update.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def assignmentRemove(request, pk):
+    assignment = Assignment.objects.get(id=pk)
+    if request.method == 'POST':
+        assignment.delete()
+        return redirect('assignment')
+    asn = assignment
+    context = {
+        'table': 'Assignment',
+        'item': f'{asn.id}. {asn.client}-{asn.year}-{asn.period}-{asn.task}'
+    }
+    return render(request, 'app/delete.html', context)
 
 
 @login_required(login_url='login')

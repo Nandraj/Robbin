@@ -42,4 +42,10 @@ urlpatterns = [
          views.employeeUpdate, name='employee_update'),
     path('change_password/',
          views.changePassword, name='change_password'),
+    path('assignment_create/',
+         views.assignmentCreate, name='assignment_create'),
+    path('assignment_update/<str:pk>/',
+         views.assignmentUpdate, name='assignment_update'),
+    path('assignment_remove/<str:pk>/',
+         views.assignmentRemove, name='assignment_remove'),
 ]
