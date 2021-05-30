@@ -1,9 +1,9 @@
-from django import forms
 from app.models import Year
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import Group, User
 from .models import (
     Contact,
@@ -485,3 +485,22 @@ def employeeRemove(request, pk):
 def assignment(request):
     context = {}
     return render(request, 'app/assignment.html', context)
+
+
+@login_required(login_url='login')
+def changePassword(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            logout(request)
+            messages.success(
+                request, 'Your password was successfully updated!')
+            return redirect('login')
+        else:
+            context = {'form': form}
+            return render(request, 'app/change-password.html', context)
+    else:
+        form = PasswordChangeForm(request.user)
+        context = {'form': form}
+        return render(request, 'app/change-password.html', context)

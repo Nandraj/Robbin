@@ -40,4 +40,6 @@ urlpatterns = [
     path('client_view/<str:pk>/', views.clientView, name='client_view'),
     path('employee_update/<str:pk>/',
          views.employeeUpdate, name='employee_update'),
+    path('change_password/',
+         views.changePassword, name='change_password'),
 ]
