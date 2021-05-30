@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import Group, User
 from .models import (
+    Assignment,
     Contact,
     OrgType,
     Client,
@@ -513,7 +514,14 @@ def employeeRemove(request, pk):
 
 @login_required(login_url='login')
 def assignment(request):
-    context = {}
+    if request.user.is_superuser:
+        assignments = Assignment.objects.all().order_by('-id')
+    elif request.user.groups.first().name in ['admin', 'Admin']:
+        assignments = Assignment.objects.all().order_by('-id')
+    else:
+        assignments = Assignment.objects.filter(
+            employee__name=request.user.employee.name).order_by('-id')
+    context = {'assignments': assignments}
     return render(request, 'app/assignment.html', context)
 
 
