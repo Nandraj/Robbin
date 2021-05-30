@@ -25,6 +25,7 @@ from .forms import (
     StatusForm,
     GroupForm,
     CreateEmployeeForm,
+    UpdateEmployeeForm,
 )
 
 
@@ -428,6 +429,42 @@ def employeeCreate(request):
     form = CreateEmployeeForm()
     context = {'form': form}
     return render(request, 'app/employee-create.html', context)
+
+
+@login_required(login_url='login')
+def employeeUpdate(request, pk):
+    employee = Employee.objects.get(id=pk)
+    user = employee.user
+    if request.method == 'POST':
+        form = UpdateEmployeeForm(request.POST, instance=user)
+        # for field in form:
+        #     print("Field Error:", field.name,  field.errors)
+        if form.is_valid():
+            user = form.save()
+            group_input = form.cleaned_data.get("group")
+            group = Group.objects.get(name=group_input)
+            # check if group changed
+            if user.groups.first() != group:
+                user.groups.clear()
+                user.groups.add(group)
+            # Update employee table
+            name = form.cleaned_data.get("name")
+            mobile = form.cleaned_data.get("mobile")
+            employee.name = name
+            employee.mobile = mobile
+            employee.save()
+            return redirect('employee')
+    form = UpdateEmployeeForm(
+        initial={
+            'username': user.username,
+            'group': user.groups.first(),
+            'email': user.email,
+            'name': employee.name,
+            'mobile': employee.mobile,
+        }
+    )
+    context = {'form': form}
+    return render(request, 'app/employee-update.html', context)
 
 
 @login_required(login_url='login')

@@ -26,7 +26,8 @@
             <td>{{ emp.user.email }}</td>
             <td>{{ emp.user.username }}</td>
             <td>
-                <a class="btn btn-primary btn-sm m-1" href="#"><i class="fa fa-pencil"></i></a>
+                <a class="btn btn-primary btn-sm m-1" href="{% url 'employee_update' emp.id %}"><i
+                        class="fa fa-pencil"></i></a>
                 <a class="btn btn-danger btn-sm m-1" href="{% url 'employee_remove' emp.id %}"><i
                         class="fa fa-trash"></i></a>
             </td>

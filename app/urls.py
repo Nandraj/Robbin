@@ -38,4 +38,6 @@ urlpatterns = [
     path('employee_remove/<str:pk>/',
          views.employeeRemove, name='employee_remove'),
     path('client_view/<str:pk>/', views.clientView, name='client_view'),
+    path('employee_update/<str:pk>/',
+         views.employeeUpdate, name='employee_update'),
 ]
