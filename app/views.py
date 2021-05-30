@@ -27,9 +27,13 @@ from .forms import (
     CreateEmployeeForm,
     UpdateEmployeeForm,
 )
+from .decorators import (
+    admin_only
+)
 
 
 @login_required(login_url='login')
+@admin_only
 def groupPage(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)
@@ -45,6 +49,7 @@ def groupPage(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def groupUpdate(request, pk):
     group = Group.objects.get(id=pk)
     if request.method == 'POST':
@@ -58,6 +63,7 @@ def groupUpdate(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def groupRemove(request, pk):
     group = Group.objects.get(id=pk)
     if request.method == 'POST':
@@ -87,6 +93,7 @@ def loginPage(request):
     return render(request, 'app/login.html', context)
 
 
+@login_required(login_url='login')
 def logoutUser(request):
     logout(request)
     return redirect('login')
@@ -119,6 +126,7 @@ def contactCreate(request):
 
 
 @login_required(login_url='login')
+# @admin_only ?
 def contactUpdate(request, pk):
     contact = Contact.objects.get(id=pk)
     if request.method == 'POST':
@@ -132,6 +140,7 @@ def contactUpdate(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def contactRemove(request, pk):
     contact = Contact.objects.get(id=pk)
     if request.method == 'POST':
@@ -145,6 +154,7 @@ def contactRemove(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def orgType(request):
     if request.method == 'POST':
         form = OrgTypeForm(request.POST)
@@ -160,6 +170,7 @@ def orgType(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def orgTypeUpdate(request, pk):
     org_type = OrgType.objects.get(id=pk)
     if request.method == 'POST':
@@ -173,6 +184,7 @@ def orgTypeUpdate(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def orgTypeRemove(request, pk):
     org_type = OrgType.objects.get(id=pk)
     if request.method == 'POST':
@@ -193,6 +205,7 @@ def client(request):
 
 
 @login_required(login_url='login')
+# @admin_only ?
 def clientCreate(request):
     if request.method == 'POST':
         form = ClientForm(request.POST)
@@ -226,6 +239,7 @@ def clientUpdate(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def clientRemove(request, pk):
     client = Client.objects.get(id=pk)
     if request.method == 'POST':
@@ -239,6 +253,7 @@ def clientRemove(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def year(request):
     if request.method == 'POST':
         form = YearForm(request.POST)
@@ -254,6 +269,7 @@ def year(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def yearUpdate(request, pk):
     year = Year.objects.get(id=pk)
     form = YearForm(instance=year)
@@ -267,6 +283,7 @@ def yearUpdate(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def yearRemove(request, pk):
     year = Year.objects.get(id=pk)
     if request.method == 'POST':
@@ -280,6 +297,7 @@ def yearRemove(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def period(request):
     if request.method == 'POST':
         form = PeriodForm(request.POST)
@@ -295,6 +313,7 @@ def period(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def periodUpdate(request, pk):
     period = Period.objects.get(id=pk)
     if request.method == 'POST':
@@ -308,6 +327,7 @@ def periodUpdate(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def periodRemove(request, pk):
     period = Period.objects.get(id=pk)
     if request.method == 'POST':
@@ -321,6 +341,7 @@ def periodRemove(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -336,6 +357,7 @@ def task(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def taskUpdate(request, pk):
     task = Task.objects.get(id=pk)
     if request.method == 'POST':
@@ -349,6 +371,7 @@ def taskUpdate(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def taskRemove(request, pk):
     task = Task.objects.get(id=pk)
     if request.method == 'POST':
@@ -362,6 +385,7 @@ def taskRemove(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def status(request):
     if request.method == 'POST':
         form = StatusForm(request.POST)
@@ -377,6 +401,7 @@ def status(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def statusUpdate(request, pk):
     status = Status.objects.get(id=pk)
     if request.method == 'POST':
@@ -390,6 +415,7 @@ def statusUpdate(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def statusRemove(request, pk):
     status = Status.objects.get(id=pk)
     if request.method == 'POST':
@@ -403,6 +429,7 @@ def statusRemove(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def employee(request):
     employees = Employee.objects.all().order_by('-id')
     context = {'employees': employees}
@@ -410,6 +437,7 @@ def employee(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def employeeCreate(request):
     if request.method == 'POST':
         form = CreateEmployeeForm(request.POST)
@@ -432,6 +460,7 @@ def employeeCreate(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def employeeUpdate(request, pk):
     employee = Employee.objects.get(id=pk)
     user = employee.user
@@ -468,6 +497,7 @@ def employeeUpdate(request, pk):
 
 
 @login_required(login_url='login')
+@admin_only
 def employeeRemove(request, pk):
     employee = Employee.objects.get(id=pk)
     user = employee.user
