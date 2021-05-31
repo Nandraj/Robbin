@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, Form
 from django import forms
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
@@ -92,3 +92,11 @@ class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
         fields = '__all__'
+
+
+class AssignmentStatusUpdateForm(Form):
+    status = forms.ModelChoiceField(
+        label='Status',
+        queryset=Status.objects.all(),
+        required=True
+    )

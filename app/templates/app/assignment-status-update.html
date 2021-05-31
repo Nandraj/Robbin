@@ -1,0 +1,42 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+{% load widget_tweaks %}
+<div class="card card-body mt-4 mb-4">
+    <h3>Update Assignment's Status</h3>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group mb-2">
+            <label>Client</label>
+            <input type="text" class="form-control" disabled value="{{ client }}">
+        </div>
+        <div class="form-group mb-2">
+            <label>Year</label>
+            <input type="text" class="form-control" disabled value="{{ year }}">
+        </div>
+        <div class="form-group mb-2">
+            <label>Period</label>
+            <input type="text" class="form-control" disabled value="{{ period }}">
+        </div>
+        <div class="form-group mb-2">
+            <label>Task</label>
+            <input type="text" class="form-control" disabled value="{{ task }}">
+        </div>
+        <div class="form-group mb-2">
+            <label>Employee</label>
+            <input type="text" class="form-control" disabled value="{{ employee }}">
+        </div>
+        <div class="form-group mb-2">
+            <label>{{ form.status.label }}</label>
+            {{ form.status | add_class:"form-control"}}
+        </div>
+        <div class="form-group mt-2">
+            <button type="submit" class="btn btn-primary">
+                Update
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

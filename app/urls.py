@@ -48,4 +48,6 @@ urlpatterns = [
          views.assignmentUpdate, name='assignment_update'),
     path('assignment_remove/<str:pk>/',
          views.assignmentRemove, name='assignment_remove'),
+    path('assignment_status_update/<str:pk>/',
+         views.assignmentStatusUpdate, name='assignment_status_update'),
 ]

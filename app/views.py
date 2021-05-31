@@ -29,6 +29,7 @@ from .forms import (
     CreateEmployeeForm,
     UpdateEmployeeForm,
     AssignmentForm,
+    AssignmentStatusUpdateForm
 )
 from .decorators import (
     admin_only
@@ -555,6 +556,31 @@ def assignmentUpdate(request, pk):
     form = AssignmentForm(instance=assignment)
     context = {'form': form}
     return render(request, 'app/assignment-update.html', context)
+
+
+@login_required(login_url='login')
+def assignmentStatusUpdate(request, pk):
+    assignment = Assignment.objects.get(id=pk)
+    if request.method == 'POST':
+        form = AssignmentStatusUpdateForm(request.POST)
+        if form.is_valid():
+            status = form.cleaned_data.get('status')
+            assignment.status = status
+            assignment.save()
+            return redirect('assignment')
+
+    form = AssignmentStatusUpdateForm(
+        initial={'status': assignment.status}
+    )
+    context = {
+        'client': assignment.client,
+        'year': assignment.year,
+        'period': assignment.period,
+        'task': assignment.task,
+        'employee': assignment.employee,
+        'form': form
+    }
+    return render(request, 'app/assignment-status-update.html', context)
 
 
 @login_required(login_url='login')

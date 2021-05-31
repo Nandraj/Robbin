@@ -38,8 +38,8 @@
             </td>
             <td>{{ asn.employee }}</td>
             <td>
-                <a class="btn btn-info btn-sm m-1" style="color: white;" href="#" title="Update"><i
-                        class="fa fa-arrow-up"></i></a>
+                <a class="btn btn-info btn-sm m-1" style="color: white;"
+                    href="{% url 'assignment_status_update' asn.id %}" title="Update"><i class="fa fa-arrow-up"></i></a>
                 {% if user.is_superuser or user.groups.all.0.name == 'Admin' or user.groups.all.0.name == 'admin' %}
                 <a class="btn btn-primary btn-sm m-1" href="{% url 'assignment_update' asn.id %}" title="Edit"><i
                         class="fa fa-pencil"></i></a>
