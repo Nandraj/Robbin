@@ -93,6 +93,10 @@ def loginPage(request):
             return redirect('home')
         else:
             messages.info(request, 'Username/Password is incorrect')
+
+    if request.user.is_authenticated:
+        return redirect('home')
+
     context = {}
     return render(request, 'app/login.html', context)
 
