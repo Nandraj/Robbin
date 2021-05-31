@@ -34,6 +34,9 @@ from .forms import (
 from .decorators import (
     admin_only
 )
+from .filters import (
+    ContactFilter,
+)
 
 
 @login_required(login_url='login')
@@ -116,7 +119,12 @@ def home(request):
 @login_required(login_url='login')
 def contact(request):
     contacts = Contact.objects.all().order_by('-id')
-    context = {'contacts': contacts}
+    contactFilter = ContactFilter(request.GET, queryset=contacts)
+    contacts = contactFilter.qs
+    context = {
+        'contactfilter': contactFilter,
+        'contacts': contacts
+    }
     return render(request, 'app/contact.html', context)
 
 
