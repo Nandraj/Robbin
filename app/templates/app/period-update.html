@@ -9,6 +9,11 @@
         {% csrf_token %}
         <div class="form-group">
             {{ form.period | add_class:"form-control"}}
+            {% if form.period.errors %}
+            <p class="text-danger">
+                {{ form.period.errors|striptags }}
+            </p>
+            {% endif %}
         </div>
         <div class="form-group mt-2">
             <button type="submit" class="btn btn-primary">

@@ -344,12 +344,12 @@ def period(request):
 @admin_only
 def periodUpdate(request, pk):
     period = Period.objects.get(id=pk)
+    form = PeriodForm(instance=period)
     if request.method == 'POST':
         form = PeriodForm(request.POST, instance=period)
         if form.is_valid():
             form.save()
             return redirect('period')
-    form = PeriodForm(instance=period)
     context = {'form': form}
     return render(request, 'app/period-update.html', context)
 
