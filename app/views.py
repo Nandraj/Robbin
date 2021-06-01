@@ -365,11 +365,17 @@ def periodRemove(request, pk):
 @login_required(login_url='login')
 @admin_only
 def task(request):
+    tasks = Task.objects.all().order_by('-id')
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
-    tasks = Task.objects.all().order_by('-id')
+        else:
+            context = {
+                'tasks': tasks,
+                'form': form
+            }
+            return render(request, 'app/task.html', context)
     form = TaskForm()
     context = {
         'tasks': tasks,
