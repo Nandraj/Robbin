@@ -259,12 +259,12 @@ def clientView(request, pk):
 @login_required(login_url='login')
 def clientUpdate(request, pk):
     client = Client.objects.get(id=pk)
+    form = ClientForm(instance=client)
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=client)
         if form.is_valid():
             form.save()
             return redirect('client')
-    form = ClientForm(instance=client)
     context = {'form': form}
     return render(request, 'app/client-update.html', context)
 
