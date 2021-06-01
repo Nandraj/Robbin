@@ -388,12 +388,12 @@ def task(request):
 @admin_only
 def taskUpdate(request, pk):
     task = Task.objects.get(id=pk)
+    form = TaskForm(instance=task)
     if request.method == 'POST':
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
             return redirect('task')
-    form = TaskForm(instance=task)
     context = {'form': form}
     return render(request, 'app/task-update.html', context)
 
