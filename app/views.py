@@ -65,12 +65,12 @@ def groupPage(request):
 @admin_only
 def groupUpdate(request, pk):
     group = Group.objects.get(id=pk)
+    form = GroupForm(instance=group)
     if request.method == 'POST':
         form = GroupForm(request.POST, instance=group)
         if form.is_valid():
             form.save()
             return redirect('group')
-    form = GroupForm(instance=group)
     context = {'form': form}
     return render(request, 'app/group-update.html', context)
 
