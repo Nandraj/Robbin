@@ -610,12 +610,12 @@ def assignmentCreate(request):
 @admin_only
 def assignmentUpdate(request, pk):
     assignment = Assignment.objects.get(id=pk)
+    form = AssignmentForm(instance=assignment)
     if request.method == 'POST':
         form = AssignmentForm(request.POST, instance=assignment)
         if form.is_valid():
             form.save()
             return redirect('assignment')
-    form = AssignmentForm(instance=assignment)
     context = {'form': form}
     return render(request, 'app/assignment-update.html', context)
 
