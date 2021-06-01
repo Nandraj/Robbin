@@ -519,6 +519,15 @@ def employeeCreate(request):
 def employeeUpdate(request, pk):
     employee = Employee.objects.get(id=pk)
     user = employee.user
+    form = UpdateEmployeeForm(
+        initial={
+            'username': user.username,
+            'group': user.groups.first(),
+            'email': user.email,
+            'name': employee.name,
+            'mobile': employee.mobile,
+        }
+    )
     if request.method == 'POST':
         form = UpdateEmployeeForm(request.POST, instance=user)
         # for field in form:
@@ -538,15 +547,6 @@ def employeeUpdate(request, pk):
             employee.mobile = mobile
             employee.save()
             return redirect('employee')
-    form = UpdateEmployeeForm(
-        initial={
-            'username': user.username,
-            'group': user.groups.first(),
-            'email': user.email,
-            'name': employee.name,
-            'mobile': employee.mobile,
-        }
-    )
     context = {'form': form}
     return render(request, 'app/employee-update.html', context)
 

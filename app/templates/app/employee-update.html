@@ -10,29 +10,53 @@
         <div class="form-group mb-2">
             <label>{{ form.username.label }}</label>
             {{ form.username | add_class:"form-control"}}
+            {% if form.username.errors %}
+            <p class="text-danger">
+                {{ form.username.errors|striptags }}
+            </p>
+            {% endif %}
         </div>
         <div class="form-group mb-2">
             <label>{{ form.group.label }}</label>
             {{ form.group | add_class:"form-control"}}
+            {% if form.group.errors %}
+            <p class="text-danger">
+                {{ form.group.errors|striptags }}
+            </p>
+            {% endif %}
         </div>
         <div class="form-group mb-2">
             <label>{{ form.name.label }}</label>
             {{ form.name | add_class:"form-control"}}
+            {% if form.name.errors %}
+            <p class="text-danger">
+                {{ form.name.errors|striptags }}
+            </p>
+            {% endif %}
         </div>
         <div class="form-group mb-2">
             <label>{{ form.mobile.label }}</label>
             {{ form.mobile | add_class:"form-control"}}
+            {% if form.mobile.errors %}
+            <p class="text-danger">
+                {{ form.mobile.errors|striptags }}
+            </p>
+            {% endif %}
         </div>
         <div class="form-group mb-2">
             <label>{{ form.email.label }}</label>
             {{ form.email | add_class:"form-control"}}
+            {% if form.email.errors %}
+            <p class="text-danger">
+                {{ form.email.errors|striptags }}
+            </p>
+            {% endif %}
         </div>
         <div class="form-group mt-2">
             <button type="submit" class="btn btn-primary">
                 Update
             </button>
         </div>
-        {{ form.errors }}
     </form>
 </div>
 
