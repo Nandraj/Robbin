@@ -438,12 +438,12 @@ def status(request):
 @admin_only
 def statusUpdate(request, pk):
     status = Status.objects.get(id=pk)
+    form = StatusForm(instance=status)
     if request.method == 'POST':
         form = StatusForm(request.POST, instance=status)
         if form.is_valid():
             form.save()
             return redirect('status')
-    form = StatusForm(instance=status)
     context = {'form': form}
     return render(request, 'app/status-update.html', context)
 
