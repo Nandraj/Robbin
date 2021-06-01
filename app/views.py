@@ -141,7 +141,9 @@ def contactCreate(request):
         if form.is_valid():
             form.save()
             return redirect('contact')
-    # TODO: Show error if form is not valid on contact creation page
+        else:
+            context = {'form': form}
+            return render(request, 'app/contact-create.html', context)
     form = ContactForm()
     context = {'form': form}
     return render(request, 'app/contact-create.html', context)
