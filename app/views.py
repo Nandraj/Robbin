@@ -271,14 +271,17 @@ def clientRemove(request, pk):
 @login_required(login_url='login')
 @admin_only
 def year(request):
+    years = Year.objects.all().order_by('-id')
     if request.method == 'POST':
         form = YearForm(request.POST)
         if form.is_valid():
             form.save()
         else:
-            context = {'form': form}
+            context = {
+                'form': form,
+                'years': years
+            }
             return render(request, 'app/year.html', context)
-    years = Year.objects.all().order_by('-id')
     form = YearForm()
     context = {
         'form': form,
