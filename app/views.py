@@ -623,6 +623,9 @@ def assignmentUpdate(request, pk):
 @login_required(login_url='login')
 def assignmentStatusUpdate(request, pk):
     assignment = Assignment.objects.get(id=pk)
+    form = AssignmentStatusUpdateForm(
+        initial={'status': assignment.status}
+    )
     if request.method == 'POST':
         form = AssignmentStatusUpdateForm(request.POST)
         if form.is_valid():
@@ -630,10 +633,6 @@ def assignmentStatusUpdate(request, pk):
             assignment.status = status
             assignment.save()
             return redirect('assignment')
-
-    form = AssignmentStatusUpdateForm(
-        initial={'status': assignment.status}
-    )
     context = {
         'client': assignment.client,
         'year': assignment.year,
