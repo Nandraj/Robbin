@@ -42,11 +42,17 @@ from .filters import (
 @login_required(login_url='login')
 @admin_only
 def groupPage(request):
+    groups = Group.objects.all().order_by('-id')
     if request.method == 'POST':
         form = GroupForm(request.POST)
         if form.is_valid():
             form.save()
-    groups = Group.objects.all().order_by('-id')
+        else:
+            context = {
+                'form': form,
+                'groups': groups,
+            }
+            return render(request, 'app/group.html', context)
     form = GroupForm()
     context = {
         'form': form,
