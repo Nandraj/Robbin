@@ -415,11 +415,17 @@ def taskRemove(request, pk):
 @login_required(login_url='login')
 @admin_only
 def status(request):
+    statuses = Status.objects.all().order_by('-id')
     if request.method == 'POST':
         form = StatusForm(request.POST)
         if form.is_valid():
             form.save()
-    statuses = Status.objects.all().order_by('-id')
+        else:
+            context = {
+                'statuses': statuses,
+                'form': form
+            }
+            return render(request, 'app/status.html', context)
     form = StatusForm()
     context = {
         'statuses': statuses,
