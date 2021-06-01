@@ -195,12 +195,12 @@ def orgType(request):
 @admin_only
 def orgTypeUpdate(request, pk):
     org_type = OrgType.objects.get(id=pk)
+    form = OrgTypeForm(instance=org_type)
     if request.method == 'POST':
         form = OrgTypeForm(request.POST, instance=org_type)
         if form.is_valid():
             form.save()
             return redirect('org_type')
-    form = OrgTypeForm(instance=org_type)
     context = {'form': form}
     return render(request, 'app/org-type-update.html', context)
 
