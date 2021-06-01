@@ -172,11 +172,17 @@ def contactRemove(request, pk):
 @login_required(login_url='login')
 @admin_only
 def orgType(request):
+    organizations = OrgType.objects.all().order_by('-id')
     if request.method == 'POST':
         form = OrgTypeForm(request.POST)
         if form.is_valid():
             form.save()
-    organizations = OrgType.objects.all().order_by('-id')
+        else:
+            context = {
+                'form': form,
+                'organizations': organizations,
+            }
+            return render(request, 'app/org-type.html', context)
     form = OrgTypeForm()
     context = {
         'form': form,
