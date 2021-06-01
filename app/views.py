@@ -153,12 +153,12 @@ def contactCreate(request):
 # @admin_only ?
 def contactUpdate(request, pk):
     contact = Contact.objects.get(id=pk)
+    form = ContactForm(instance=contact)
     if request.method == 'POST':
         form = ContactForm(request.POST, instance=contact)
         if form.is_valid():
             form.save()
             return redirect('contact')
-    form = ContactForm(instance=contact)
     context = {'form': form}
     return render(request, 'app/contact-update.html', context)
 
