@@ -506,6 +506,9 @@ def employeeCreate(request):
                 mobile=mobile
             )
             return redirect('employee')
+        else:
+            context = {'form': form}
+            return render(request, 'app/employee-create.html', context)
     form = CreateEmployeeForm()
     context = {'form': form}
     return render(request, 'app/employee-create.html', context)
