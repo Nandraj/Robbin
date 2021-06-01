@@ -592,6 +592,9 @@ def assignmentCreate(request):
         if form.is_valid():
             form.save()
             return redirect('assignment_create')
+        else:
+            context = {'form': form}
+            return render(request, 'app/assignment-create.html', context)
     try:
         form = AssignmentForm(initial={
             'status': Status.objects.first().id,
