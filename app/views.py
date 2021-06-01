@@ -275,6 +275,9 @@ def year(request):
         form = YearForm(request.POST)
         if form.is_valid():
             form.save()
+        else:
+            context = {'form': form}
+            return render(request, 'app/year.html', context)
     years = Year.objects.all().order_by('-id')
     form = YearForm()
     context = {
