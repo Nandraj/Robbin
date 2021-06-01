@@ -321,11 +321,17 @@ def yearRemove(request, pk):
 @login_required(login_url='login')
 @admin_only
 def period(request):
+    periods = Period.objects.all().order_by('-id')
     if request.method == 'POST':
         form = PeriodForm(request.POST)
         if form.is_valid():
             form.save()
-    periods = Period.objects.all().order_by('-id')
+        else:
+            context = {
+                'periods': periods,
+                'form': form
+            }
+            return render(request, 'app/period.html', context)
     form = PeriodForm()
     context = {
         'periods': periods,
