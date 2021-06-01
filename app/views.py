@@ -240,6 +240,9 @@ def clientCreate(request):
         if form.is_valid():
             form.save()
             return redirect('client')
+        else:
+            context = {'form': form}
+            return render(request, 'app/client-create.html', context)
     form = ClientForm()
     context = {'form': form}
     return render(request, 'app/client-create.html', context)
