@@ -5,75 +5,77 @@
 <h3>Clients</h3>
 
 {% if clients %}
-<table class="table table-stripped">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Contact</th>
-            <th>Mobile</th>
-            <th>Email</th>
-            <th />
-        </tr>
-    </thead>
-    <tbody>
-        {% for cl in clients %}
-        <tr>
-            <td>{{ cl.id }}</td>
-            <td>
-                {{ cl.name }} <span style="font-size:small;">({{ cl.org_type }})</span>
-                <br>
-                <span style="font-size:small;">
-                    DOB/I: {{ cl.inco_date}},
-                    Mob: {{ cl.mobile }},
-                    Email: {% if cl.email == None %}
-                    {{ cl.email }}
-                    {% else %}
-                    <a href="mailto:{{cl.email}}">{{ cl.email }}</a>
-                    {% endif %}
+<div class="table-responsive">
+    <table class="table table-stripped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th />
+            </tr>
+        </thead>
+        <tbody>
+            {% for cl in clients %}
+            <tr>
+                <td>{{ cl.id }}</td>
+                <td>
+                    {{ cl.name }} <span style="font-size:small;">({{ cl.org_type }})</span>
                     <br>
-                    Pan: {{ cl.pan }},
-                    GSTIN: {{ cl.gstin }}
-                </span>
-            </td>
-            <!-- TODO: Show first contact name, mobile and email -->
-            <td>
-                {% for ct in cl.getContacts %}
-                <a href="{% url 'contact_update' ct.id %}">{{ ct.name }}</a>
-                <br>
-                {% endfor %}
-            </td>
-            <td>
-                {% for ct in cl.getContacts %}
-                <a class="btn btn-sm btn-success px-1 py-0 mb-1"
-                    href="https://api.whatsapp.com/send?phone=+91{{ ct.mobile|cut:' ' }}" title="whatsapp"
-                    target="_blank">
-                    <i class="fa fa-whatsapp"></i>
-                </a>
-                {{ ct.mobile }}
-                <br>
-                {% endfor %}
-            </td>
-            <td>
-                {% for ct in cl.getContacts %}
-                {{ ct.email }}
-                <br>
-                {% endfor %}
-            </td>
-            <td>
-                <a class="btn btn-info btn-sm m-1" style="color: white;" href="{% url 'client_view' cl.id %}"><i
-                        class="fa fa-eye"></i></a>
-                <a class="btn btn-primary btn-sm m-1" href="{% url 'client_update' cl.id %}"><i
-                        class="fa fa-pencil"></i></a>
-                {% if user.is_superuser or user.groups.all.0.name == 'Admin' or user.groups.all.0.name == 'admin' %}
-                <a class="btn btn-danger btn-sm m-1" href="{% url 'client_remove' cl.id %}"><i
-                        class="fa fa-trash"></i></a>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                    <span style="font-size:small;">
+                        DOB/I: {{ cl.inco_date}},
+                        Mob: {{ cl.mobile }},
+                        Email: {% if cl.email == None %}
+                        {{ cl.email }}
+                        {% else %}
+                        <a href="mailto:{{cl.email}}">{{ cl.email }}</a>
+                        {% endif %}
+                        <br>
+                        Pan: {{ cl.pan }},
+                        GSTIN: {{ cl.gstin }}
+                    </span>
+                </td>
+                <!-- TODO: Show first contact name, mobile and email -->
+                <td>
+                    {% for ct in cl.getContacts %}
+                    <a href="{% url 'contact_update' ct.id %}">{{ ct.name }}</a>
+                    <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for ct in cl.getContacts %}
+                    <a class="btn btn-sm btn-success px-1 py-0 mb-1"
+                        href="https://api.whatsapp.com/send?phone=+91{{ ct.mobile|cut:' ' }}" title="whatsapp"
+                        target="_blank">
+                        <i class="fa fa-whatsapp"></i>
+                    </a>
+                    {{ ct.mobile }}
+                    <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for ct in cl.getContacts %}
+                    {{ ct.email }}
+                    <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a class="btn btn-info btn-sm m-1" style="color: white;" href="{% url 'client_view' cl.id %}"><i
+                            class="fa fa-eye"></i></a>
+                    <a class="btn btn-primary btn-sm m-1" href="{% url 'client_update' cl.id %}"><i
+                            class="fa fa-pencil"></i></a>
+                    {% if user.is_superuser or user.groups.all.0.name == 'Admin' or user.groups.all.0.name == 'admin' %}
+                    <a class="btn btn-danger btn-sm m-1" href="{% url 'client_remove' cl.id %}"><i
+                            class="fa fa-trash"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endif %}
 
 <a class="btn btn-success btn-circle btn-lg" href="{% url 'client_create' %}"><i class="fa fa-plus"></i></a>
