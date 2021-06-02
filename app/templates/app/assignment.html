@@ -6,51 +6,54 @@
 <h3>Assignments</h3>
 
 {% if assignments %}
-<table class="table table-stripped">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Client</th>
-            <th>Period</th>
-            <th>Task</th>
-            <th>Employee</th>
-            <th />
-        </tr>
-    </thead>
-    <tbody>
-        {% for asn in assignments %}
-        <tr>
-            <td>{{ asn.id }}</td>
-            <td>
-                {{ asn.client }}
-                <br>
-                <span style="font-size:small;">{{ asn.date_created }}</span>
-            </td>
-            <td>
-                {{ asn.year }}
-                <br>
-                {{ asn.period }}
-            </td>
-            <td>
-                {{ asn.task }}
-                <br>
-                {{ asn.status }}
-            </td>
-            <td>{{ asn.employee }}</td>
-            <td>
-                <a class="btn btn-info btn-sm m-1" style="color: white;"
-                    href="{% url 'assignment_status_update' asn.id %}" title="Update"><i class="fa fa-arrow-up"></i></a>
-                {% if user.is_superuser or user.groups.all.0.name == 'Admin' or user.groups.all.0.name == 'admin' %}
-                <a class="btn btn-primary btn-sm m-1" href="{% url 'assignment_update' asn.id %}" title="Edit"><i
-                        class="fa fa-pencil"></i></a>
-                <a class="btn btn-danger btn-sm m-1" href="{% url 'assignment_remove' asn.id %}" title="Delete"><i
-                        class="fa fa-trash"></i></a>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-stripped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Client</th>
+                <th>Period</th>
+                <th>Task</th>
+                <th>Employee</th>
+                <th />
+            </tr>
+        </thead>
+        <tbody>
+            {% for asn in assignments %}
+            <tr>
+                <td>{{ asn.id }}</td>
+                <td>
+                    {{ asn.client }}
+                    <br>
+                    <span style="font-size:small;">{{ asn.date_created }}</span>
+                </td>
+                <td>
+                    {{ asn.year }}
+                    <br>
+                    {{ asn.period }}
+                </td>
+                <td>
+                    {{ asn.task }}
+                    <br>
+                    {{ asn.status }}
+                </td>
+                <td>{{ asn.employee }}</td>
+                <td>
+                    <a class="btn btn-info btn-sm m-1" style="color: white;"
+                        href="{% url 'assignment_status_update' asn.id %}" title="Update"><i
+                            class="fa fa-arrow-up"></i></a>
+                    {% if user.is_superuser or user.groups.all.0.name == 'Admin' or user.groups.all.0.name == 'admin' %}
+                    <a class="btn btn-primary btn-sm m-1" href="{% url 'assignment_update' asn.id %}" title="Edit"><i
+                            class="fa fa-pencil"></i></a>
+                    <a class="btn btn-danger btn-sm m-1" href="{% url 'assignment_remove' asn.id %}" title="Delete"><i
+                            class="fa fa-trash"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endif %}
 
 <a class="btn btn-success btn-circle btn-lg" href="{% url 'assignment_create' %}"><i class="fa fa-plus"></i></a>
