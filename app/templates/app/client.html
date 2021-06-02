@@ -61,13 +61,14 @@
                 {% endfor %}
             </td>
             <td>
-                <!-- TODO: Add view client details page (read-only) -->
                 <a class="btn btn-info btn-sm m-1" style="color: white;" href="{% url 'client_view' cl.id %}"><i
                         class="fa fa-eye"></i></a>
                 <a class="btn btn-primary btn-sm m-1" href="{% url 'client_update' cl.id %}"><i
                         class="fa fa-pencil"></i></a>
+                {% if user.is_superuser or user.groups.all.0.name == 'Admin' or user.groups.all.0.name == 'admin' %}
                 <a class="btn btn-danger btn-sm m-1" href="{% url 'client_remove' cl.id %}"><i
                         class="fa fa-trash"></i></a>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
