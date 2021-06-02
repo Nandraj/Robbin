@@ -11,10 +11,9 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
-            <th>Mobile</th>
-            <th>Email</th>
             <th>Username</th>
             <th>Group</th>
+            <th>Mobile</th>
             <th />
         </tr>
     </thead>
@@ -23,10 +22,9 @@
         <tr>
             <td>{{ emp.id }}</td>
             <td>{{ emp.name }}</td>
-            <td>{{ emp.mobile }}</td>
-            <td>{{ emp.user.email }}</td>
             <td>{{ emp.user.username }}</td>
             <td>{{ emp.user.groups.first.name }}</td>
+            <td>{{ emp.mobile }}</td>
             <td>
                 <a class="btn btn-primary btn-sm m-1" href="{% url 'employee_update' emp.id %}"><i
                         class="fa fa-pencil"></i></a>
