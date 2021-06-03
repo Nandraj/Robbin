@@ -38,6 +38,7 @@ from .decorators import (
 )
 from .filters import (
     ContactFilter,
+    ClientFilter,
 )
 
 
@@ -232,7 +233,12 @@ def orgTypeRemove(request, pk):
 @login_required(login_url='login')
 def client(request):
     clients = Client.objects.all().order_by('-id')
-    context = {'clients': clients}
+    clientFilter = ClientFilter(request.GET, queryset=clients)
+    clients = clientFilter.qs
+    context = {
+        'clientfilter': clientFilter,
+        'clients': clients,
+    }
     return render(request, 'app/client.html', context)
 
 

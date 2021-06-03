@@ -2,9 +2,23 @@
 
 {% block content %}
 
+{% load widget_tweaks %}
+
 <h3>Clients</h3>
 
 {% if clients %}
+<br>
+<div>
+    <form method="GET" class="row">
+        <div class="col">
+            {{ clientfilter.form.q | add_class:"form-control" }}
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+</div>
+
 <div class="table-responsive">
     <table class="table table-stripped">
         <thead>
