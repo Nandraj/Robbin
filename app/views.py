@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import Group, User
+from django.http import HttpResponse
+from djqscsv import render_to_csv_response
 from .models import (
     Assignment,
     Contact,
@@ -676,3 +678,66 @@ def changePassword(request):
         form = PasswordChangeForm(request.user)
         context = {'form': form}
         return render(request, 'app/change-password.html', context)
+
+
+@login_required(login_url='login')
+def exportCsv(request, table):
+    if table == 'contact':
+        qs = Contact.objects.all()
+        return render_to_csv_response(qs)
+    elif table == 'client':
+        qs = Client.objects.all().values(
+            'id',
+            'date_created',
+            'name',
+            'org_type__org_type',
+            'contact__name',
+            'contact__mobile',
+            'contact__email',
+            'mobile',
+            'email',
+            'inco_date',
+            'pan',
+            'aadhar',
+            'tan',
+            'gstin',
+            'iec',
+            'income_tax_password',
+            'gst_userid',
+            'gst_password',
+            'remark',
+        )
+        return render_to_csv_response(qs, field_header_map={
+            'org_type__org_type': 'org type',
+            'contact__name': 'contact name',
+            'contact__mobile': 'contact mobile',
+            'contact__email': 'contact email',
+        })
+    elif table == 'assignment':
+        if request.user.is_superuser or request.user.groups.first().name in ['admin', 'Admin']:
+            qs0 = Assignment.objects.all()
+        else:
+            qs0 = Assignment.objects.filter(
+                employee__name=request.user.employee.name)
+
+        qs = qs0.values(
+            'id',
+            'date_created',
+            'client__name',
+            'year__number',
+            'period__period',
+            'task__task',
+            'employee__name',
+            'status__status',
+        )
+        return render_to_csv_response(qs, field_header_map={
+            'date_created': 'date',
+            'client__name': 'client',
+            'year__number': 'year',
+            'period__period': 'period',
+            'task__task': 'task',
+            'employee__name': 'employee',
+            'status__status': 'status'
+        })
+    else:
+        return HttpResponse('<h2>Invalid data request</h1>')

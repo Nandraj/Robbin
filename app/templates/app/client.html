@@ -78,6 +78,8 @@
 </div>
 {% endif %}
 
+<a class="btn btn-secondary btn-circle btn-lg" style="bottom: 100px; right: 20px;"
+    href="{% url 'export_csv' 'client' %}"><i class="fa fa-file-excel-o"></i></a>
 <a class="btn btn-success btn-circle btn-lg" href="{% url 'client_create' %}"><i class="fa fa-plus"></i></a>
 
 {% endblock %}
