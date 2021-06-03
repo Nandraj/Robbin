@@ -8,15 +8,9 @@
 {% if contacts %}
 <br>
 <div>
-    <form method="GET" class="row gx-4 gy-1">
-        <div class="col-md-3">
-            {{ contactfilter.form.name | append_attr:"placeholder:name" | add_class:"form-control" }}
-        </div>
-        <div class="col-md-3">
-            {{ contactfilter.form.mobile | append_attr:"placeholder:mobile" | add_class:"form-control" }}
-        </div>
-        <div class="col-md-3">
-            {{ contactfilter.form.email | append_attr:"placeholder:email" | add_class:"form-control" }}
+    <form method="GET" class="row">
+        <div class="col">
+            {{ contactfilter.form.q | add_class:"form-control" }}
         </div>
         <div class="col-md-3">
             <button class="btn btn-primary" type="submit">Search</button>

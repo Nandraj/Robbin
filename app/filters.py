@@ -5,14 +5,19 @@ from django_filters import (
 from .models import (
     Contact,
 )
+from django.db.models import Q
 
 
 class ContactFilter(FilterSet):
-    name = CharFilter(field_name='name', lookup_expr='icontains')
-    mobile = CharFilter(field_name='mobile', lookup_expr='icontains')
-    email = CharFilter(field_name='email', lookup_expr='icontains')
+    q = CharFilter(method='my_custom_filter')
 
     class Meta:
         model = Contact
-        fields = '__all__'
-        exclude = ('date_created',)
+        fields = ['q']
+
+    def my_custom_filter(self, queryset, name, value):
+        return Contact.objects.filter(
+            Q(name__icontains=value) | 
+            Q(mobile__icontains=value) | 
+            Q(email__icontains=value)
+        ).order_by('-id')
