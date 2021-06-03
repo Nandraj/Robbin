@@ -55,8 +55,10 @@
 </table>
 {% endif %}
 
+{% if contacts %}
 <a class="btn btn-secondary btn-circle btn-lg" style="bottom: 100px; right: 20px;"
     href="{% url 'export_csv' 'contact' %}"><i class="fa fa-file-excel-o"></i></a>
+{% endif %}
 <a class="btn btn-success btn-circle btn-lg" href="{% url 'contact_create' %}"><i class="fa fa-plus"></i></a>
 
 {% endblock %}

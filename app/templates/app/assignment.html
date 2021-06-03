@@ -56,11 +56,17 @@
 </div>
 {% endif %}
 
-<a class="btn btn-secondary btn-circle btn-lg" href="{% url 'export_csv' 'assignment' %}"><i
-        class="fa fa-file-excel-o"></i></a>
+{% if assignments %}
 {% if user.is_superuser or user.groups.all.0.name == 'Admin' or user.groups.all.0.name == 'admin' %}
 <a class="btn btn-secondary btn-circle btn-lg" style="bottom: 100px; right: 20px;"
     href="{% url 'export_csv' 'assignment' %}"><i class="fa fa-file-excel-o"></i></a>
+{% else %}
+<a class="btn btn-secondary btn-circle btn-lg" href="{% url 'export_csv' 'assignment' %}"><i
+    class="fa fa-file-excel-o"></i></a>
+{% endif %}
+{% endif %}
+
+{% if user.is_superuser or user.groups.all.0.name == 'Admin' or user.groups.all.0.name == 'admin' %}
 <a class="btn btn-success btn-circle btn-lg" href="{% url 'assignment_create' %}"><i class="fa fa-plus"></i></a>
 {% endif %}
 
