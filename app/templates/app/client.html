@@ -2,9 +2,23 @@
 
 {% block content %}
 
+{% load widget_tweaks %}
+
 <h3>Clients</h3>
 
 {% if clients %}
+<br>
+<div>
+    <form method="GET" class="row">
+        <div class="col">
+            {{ clientfilter.form.q | add_class:"form-control" }}
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+</div>
+
 <div class="table-responsive">
     <table class="table table-stripped">
         <thead>
@@ -78,8 +92,10 @@
 </div>
 {% endif %}
 
+{% if clients %}
 <a class="btn btn-secondary btn-circle btn-lg" style="bottom: 100px; right: 20px;"
     href="{% url 'export_csv' 'client' %}"><i class="fa fa-file-excel-o"></i></a>
+{% endif %}
 <a class="btn btn-success btn-circle btn-lg" href="{% url 'client_create' %}"><i class="fa fa-plus"></i></a>
 
 {% endblock %}
