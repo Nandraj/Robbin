@@ -5,6 +5,7 @@
 {% load widget_tweaks %}
 <h3>Contacts</h3>
 
+{% if contacts %}
 <br>
 <div>
     <form method="GET" class="row gx-4 gy-1">
@@ -23,7 +24,6 @@
     </form>
 </div>
 
-{% if contacts %}
 <table class="table table-stripped">
     <thead>
         <tr>
