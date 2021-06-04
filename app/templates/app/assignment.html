@@ -6,6 +6,25 @@
 <h3>Assignments</h3>
 
 {% if assignments %}
+
+<br>
+<div>
+    <form method="GET" class="row">
+        <div class="col-md-3">
+            {{ assignmentfilter.form.q | add_class:"form-control" }}
+        </div>
+        <div class="col-md-3">
+            {{ assignmentfilter.form.start_date | add_class:"form-control" | attr:"type:date" }}
+        </div>
+        <div class="col-md-3">
+            {{ assignmentfilter.form.end_date | add_class:"form-control" | attr:"type:date" }}
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+</div>
+
 <div class="table-responsive">
     <table class="table table-stripped">
         <thead>
