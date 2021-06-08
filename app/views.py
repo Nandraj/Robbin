@@ -39,6 +39,7 @@ from .decorators import (
 from .filters import (
     ContactFilter,
     ClientFilter,
+    AssignmentFilter,
 )
 
 
@@ -588,7 +589,12 @@ def assignment(request):
     else:
         assignments = Assignment.objects.filter(
             employee__name=request.user.employee.name).order_by('-id')
-    context = {'assignments': assignments}
+    assignmentFilter = AssignmentFilter(request.GET, assignments)
+    assignments = assignmentFilter.qs            
+    context = {
+        'assignmentfilter': assignmentFilter,
+        'assignments': assignments
+    }
     return render(request, 'app/assignment.html', context)
 
 

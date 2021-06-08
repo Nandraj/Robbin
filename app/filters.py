@@ -1,10 +1,14 @@
 from django_filters import (
     FilterSet,
     CharFilter,
+    DateFilter,
+    # DateFromToRangeFilter,
 )
+from django_filters.widgets import RangeWidget
 from .models import (
     Contact,
     Client,
+    Assignment,
 )
 from django.db.models import Q
 
@@ -47,4 +51,25 @@ class ClientFilter(FilterSet):
             Q(iec__icontains=value) | 
             Q(gst_userid__icontains=value) | 
             Q(remark__icontains=value)
+        ).order_by('-id')
+
+
+class AssignmentFilter(FilterSet):
+    q = CharFilter(method='my_custom_filter')
+    start_date = DateFilter(field_name='date_created', lookup_expr='gte')
+    end_date = DateFilter(field_name='date_created', lookup_expr='lte')
+    # date_range = DateFromToRangeFilter(field_name='date_created', widget=RangeWidget())
+
+    class Meta:
+        model = Assignment
+        fields = ['q', 'start_date', 'end_date',]
+
+    def my_custom_filter(self, queryset, name, value):
+        return Assignment.objects.filter(
+            Q(client__name__icontains=value) | 
+            Q(year__number__icontains=value) | 
+            Q(period__period__icontains=value) |
+            Q(task__task__icontains=value) |
+            Q(employee__name__icontains=value) |
+            Q(status__status__icontains=value)
         ).order_by('-id')
