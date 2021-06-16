@@ -25,7 +25,7 @@ class ContactFilter(FilterSet):
             Q(name__icontains=value) |
             Q(mobile__icontains=value) |
             Q(email__icontains=value)
-        ).order_by('-id')
+        ).order_by('-id').distinct()
 
 
 class ClientFilter(FilterSet):
@@ -51,7 +51,7 @@ class ClientFilter(FilterSet):
             Q(iec__icontains=value) |
             Q(gst_userid__icontains=value) |
             Q(remark__icontains=value)
-        ).order_by('-id')
+        ).order_by('-id').distinct()
 
 
 class AssignmentFilter(FilterSet):
@@ -72,4 +72,4 @@ class AssignmentFilter(FilterSet):
             Q(task__task__icontains=value) |
             Q(employee__name__icontains=value) |
             Q(status__status__icontains=value)
-        ).order_by('-id')
+        ).order_by('-id').distinct()
