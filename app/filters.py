@@ -65,11 +65,16 @@ class AssignmentFilter(FilterSet):
         fields = ['q', 'start_date', 'end_date', ]
 
     def my_custom_filter(self, queryset, name, value):
-        return Assignment.objects.filter(
-            Q(client__name__icontains=value) |
-            Q(year__number__icontains=value) |
-            Q(period__period__icontains=value) |
-            Q(task__task__icontains=value) |
-            Q(employee__name__icontains=value) |
-            Q(status__status__icontains=value)
-        ).order_by('-id').distinct()
+        wordList = filter(lambda x: len(x) > 0, [
+                          x.strip() for x in value.split(',')])
+        qSetList = Assignment.objects.all()
+        for word in wordList:
+            qSetList = qSetList.intersection(Assignment.objects.filter(
+                Q(client__name__icontains=word) |
+                Q(year__number__icontains=word) |
+                Q(period__period__icontains=word) |
+                Q(task__task__icontains=word) |
+                Q(employee__name__icontains=word) |
+                Q(status__status__icontains=word)
+            ))
+        return qSetList.order_by('-id')
