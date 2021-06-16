@@ -22,8 +22,8 @@ class ContactFilter(FilterSet):
 
     def my_custom_filter(self, queryset, name, value):
         return Contact.objects.filter(
-            Q(name__icontains=value) | 
-            Q(mobile__icontains=value) | 
+            Q(name__icontains=value) |
+            Q(mobile__icontains=value) |
             Q(email__icontains=value)
         ).order_by('-id')
 
@@ -37,19 +37,19 @@ class ClientFilter(FilterSet):
 
     def my_custom_filter(self, queryset, name, value):
         return Client.objects.filter(
-            Q(name__icontains=value) | 
-            Q(org_type__org_type__icontains=value) | 
+            Q(name__icontains=value) |
+            Q(org_type__org_type__icontains=value) |
             Q(contact__name__icontains=value) |
             Q(contact__email__icontains=value) |
             Q(contact__mobile__icontains=value) |
-            Q(mobile__icontains=value) | 
-            Q(email__icontains=value) | 
+            Q(mobile__icontains=value) |
+            Q(email__icontains=value) |
             Q(pan__icontains=value) |
-            Q(aadhar__icontains=value) | 
-            Q(tan__icontains=value) | 
+            Q(aadhar__icontains=value) |
+            Q(tan__icontains=value) |
             Q(gstin__icontains=value) |
-            Q(iec__icontains=value) | 
-            Q(gst_userid__icontains=value) | 
+            Q(iec__icontains=value) |
+            Q(gst_userid__icontains=value) |
             Q(remark__icontains=value)
         ).order_by('-id')
 
@@ -62,12 +62,12 @@ class AssignmentFilter(FilterSet):
 
     class Meta:
         model = Assignment
-        fields = ['q', 'start_date', 'end_date',]
+        fields = ['q', 'start_date', 'end_date', ]
 
     def my_custom_filter(self, queryset, name, value):
         return Assignment.objects.filter(
-            Q(client__name__icontains=value) | 
-            Q(year__number__icontains=value) | 
+            Q(client__name__icontains=value) |
+            Q(year__number__icontains=value) |
             Q(period__period__icontains=value) |
             Q(task__task__icontains=value) |
             Q(employee__name__icontains=value) |

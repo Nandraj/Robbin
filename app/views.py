@@ -590,7 +590,7 @@ def assignment(request):
         assignments = Assignment.objects.filter(
             employee__name=request.user.employee.name).order_by('-id')
     assignmentFilter = AssignmentFilter(request.GET, assignments)
-    assignments = assignmentFilter.qs            
+    assignments = assignmentFilter.qs
     context = {
         'assignmentfilter': assignmentFilter,
         'assignments': assignments
