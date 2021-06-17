@@ -583,14 +583,14 @@ def employeeRemove(request, pk):
 @login_required(login_url='login')
 def assignment(request):
     if request.user.is_superuser:
-        assignments = Assignment.objects.all().order_by('-id')
+        assignments = Assignment.objects.all()
     elif request.user.groups.first().name in ['admin', 'Admin']:
-        assignments = Assignment.objects.all().order_by('-id')
+        assignments = Assignment.objects.all()
     else:
         assignments = Assignment.objects.filter(
-            employee__name=request.user.employee.name).order_by('-id')
+            employee__name=request.user.employee.name)
     assignmentFilter = AssignmentFilter(request.GET, assignments)
-    assignments = assignmentFilter.qs
+    assignments = assignmentFilter.qs.order_by('-id')
     context = {
         'assignmentfilter': assignmentFilter,
         'assignments': assignments
