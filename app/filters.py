@@ -38,22 +38,29 @@ class ClientFilter(FilterSet):
         fields = ['q']
 
     def my_custom_filter(self, queryset, name, value):
-        return Client.objects.filter(
-            Q(name__icontains=value) |
-            Q(org_type__org_type__icontains=value) |
-            Q(contact__name__icontains=value) |
-            Q(contact__email__icontains=value) |
-            Q(contact__mobile__icontains=value) |
-            Q(mobile__icontains=value) |
-            Q(email__icontains=value) |
-            Q(pan__icontains=value) |
-            Q(aadhar__icontains=value) |
-            Q(tan__icontains=value) |
-            Q(gstin__icontains=value) |
-            Q(iec__icontains=value) |
-            Q(gst_userid__icontains=value) |
-            Q(remark__icontains=value)
-        ).order_by('-id').distinct()
+        wordList = filter(lambda x: len(x) > 0, [
+            x.strip() for x in value.split(',')])
+        qSetList = Client.objects.all()
+        for word in wordList:
+            qSetList = qSetList.intersection(
+                Client.objects.filter(
+                    Q(name__icontains=word) |
+                    Q(org_type__org_type__icontains=word) |
+                    Q(contact__name__icontains=word) |
+                    Q(contact__email__icontains=word) |
+                    Q(contact__mobile__icontains=word) |
+                    Q(mobile__icontains=word) |
+                    Q(email__icontains=word) |
+                    Q(pan__icontains=word) |
+                    Q(aadhar__icontains=word) |
+                    Q(tan__icontains=word) |
+                    Q(gstin__icontains=word) |
+                    Q(iec__icontains=word) |
+                    Q(gst_userid__icontains=word) |
+                    Q(remark__icontains=word)
+                )
+            )
+        return qSetList
 
 
 class AssignmentFilter(FilterSet):

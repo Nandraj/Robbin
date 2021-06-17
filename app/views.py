@@ -233,9 +233,9 @@ def orgTypeRemove(request, pk):
 
 @login_required(login_url='login')
 def client(request):
-    clients = Client.objects.all().order_by('-id')
+    clients = Client.objects.all()
     clientFilter = ClientFilter(request.GET, queryset=clients)
-    clients = clientFilter.qs
+    clients = clientFilter.qs.order_by('-id')
     context = {
         'clientfilter': clientFilter,
         'clients': clients,
