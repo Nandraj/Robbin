@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+*{
+  font-family: 'Poppins', sans-serif;
+}
 .btn-circle.btn-lg {
   width: 50px;
   height: 50px;
@@ -12,4 +16,53 @@
   text-align: center;
   font-size: larger;
   cursor: pointer;
+}
+/* Header Css Starts from here */
+
+.navbar{
+  padding: 12px 0;
+  min-height: auto;
+  height: auto;
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(5,89,253,0.16);
+}
+.navbar .navbar-brand{
+  margin-right: 64px;
+  color: #0559FD;
+  margin-left: 40px;
+  font-weight: bold;
+}
+.navbar .navbar-nav .nav-item{
+  margin-right: 40px;
+}
+.navbar .navbar-nav .nav-item .nav-link{
+  padding: 0;
+  color: #2C3550;
+  font-size: 14px;
+}
+.navbar .navbar-nav .nav-item .nav-link:hover{
+  color: #0559FD;
+}
+.navbar .navbar-nav .nav-item .dropdown-menu{
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(5,89,253,0.16);
+  border: none;
+  padding: 0;
+  border-radius: 8px;
+}
+.navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-item{
+  color: #2C3550;
+  font-size: 13px;
+  padding: 8px 12px;
+  font-weight: normal;
+}
+.navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-item:hover{
+  background-color: #E1EBFF;
+  color: #0559FD;
+}
+.navbar .navbar-nav .nav-item .dropdown-menu li:first-child .dropdown-item{
+  border-radius: 8px 8px 0 0;
+}
+.navbar .navbar-nav .nav-item .dropdown-menu li:last-child .dropdown-item{
+  border-radius: 0 0 8px 8px;
 }

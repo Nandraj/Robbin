@@ -20,7 +20,7 @@
     }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home' %}">Robbin</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -37,8 +37,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Masters</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
-                            style="background-color: #e3f2fd;">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'org_type' %}">Org Type</a></li>
                             <li><a class="dropdown-item" href="{% url 'year' %}">Year</a></li>
                             <li><a class="dropdown-item" href="{% url 'period' %}">Period</a></li>
@@ -53,8 +52,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Team</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
-                            style="background-color: #e3f2fd;">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'group' %}">Group</a></li>
                             <li><a class="dropdown-item" href="{% url 'employee' %}">Employee</a></li>
                         </ul>
@@ -70,12 +68,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'assignment' %}">Assignment</a>
                 </li>
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav navbar-user-dropdown">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">{{request.user | title}}</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
-                            style="background-color: #e3f2fd;">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                             <li><a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a></li>
                         </ul>
