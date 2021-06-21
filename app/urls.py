@@ -52,4 +52,6 @@ urlpatterns = [
          views.assignmentStatusUpdate, name='assignment_status_update'),
     path('export_csv/<str:table>/',
          views.exportCsv, name='export_csv'),
+    path('employee_password_reset/<str:pk>/',
+         views.employeePasswordReset, name='employee_password_reset'),
 ]

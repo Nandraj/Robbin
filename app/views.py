@@ -30,6 +30,7 @@ from .forms import (
     GroupForm,
     CreateEmployeeForm,
     UpdateEmployeeForm,
+    EmployeePasswordResetForm,
     AssignmentForm,
     AssignmentStatusUpdateForm
 )
@@ -563,6 +564,27 @@ def employeeUpdate(request, pk):
             return redirect('employee')
     context = {'form': form}
     return render(request, 'app/employee-update.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def employeePasswordReset(request, pk):
+    employee = Employee.objects.get(id=pk)
+    user = employee.user
+    if request.method == 'POST':
+        form = EmployeePasswordResetForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data.get('password')
+            user.set_password(password)
+            user.save()
+            return redirect('employee')
+        else:
+            context = {'form': form}
+            return render(request, 'app/employee-password-reset.html', context)
+    else:
+        form = EmployeePasswordResetForm()
+        context = {'form': form}
+        return render(request, 'app/employee-password-reset.html', context)
 
 
 @login_required(login_url='login')
