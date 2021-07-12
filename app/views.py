@@ -30,6 +30,7 @@ from .forms import (
     GroupForm,
     CreateEmployeeForm,
     UpdateEmployeeForm,
+    EmployeePasswordResetForm,
     AssignmentForm,
     AssignmentStatusUpdateForm
 )
@@ -233,9 +234,9 @@ def orgTypeRemove(request, pk):
 
 @login_required(login_url='login')
 def client(request):
-    clients = Client.objects.all().order_by('-id')
+    clients = Client.objects.all()
     clientFilter = ClientFilter(request.GET, queryset=clients)
-    clients = clientFilter.qs
+    clients = clientFilter.qs.order_by('-id')
     context = {
         'clientfilter': clientFilter,
         'clients': clients,
@@ -567,6 +568,27 @@ def employeeUpdate(request, pk):
 
 @login_required(login_url='login')
 @admin_only
+def employeePasswordReset(request, pk):
+    employee = Employee.objects.get(id=pk)
+    user = employee.user
+    if request.method == 'POST':
+        form = EmployeePasswordResetForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data.get('password')
+            user.set_password(password)
+            user.save()
+            return redirect('employee')
+        else:
+            context = {'form': form}
+            return render(request, 'app/employee-password-reset.html', context)
+    else:
+        form = EmployeePasswordResetForm()
+        context = {'form': form}
+        return render(request, 'app/employee-password-reset.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
 def employeeRemove(request, pk):
     employee = Employee.objects.get(id=pk)
     user = employee.user
@@ -583,14 +605,14 @@ def employeeRemove(request, pk):
 @login_required(login_url='login')
 def assignment(request):
     if request.user.is_superuser:
-        assignments = Assignment.objects.all().order_by('-id')
+        assignments = Assignment.objects.all()
     elif request.user.groups.first().name in ['admin', 'Admin']:
-        assignments = Assignment.objects.all().order_by('-id')
+        assignments = Assignment.objects.all()
     else:
         assignments = Assignment.objects.filter(
-            employee__name=request.user.employee.name).order_by('-id')
+            employee__name=request.user.employee.name)
     assignmentFilter = AssignmentFilter(request.GET, assignments)
-    assignments = assignmentFilter.qs            
+    assignments = assignmentFilter.qs.order_by('-id')
     context = {
         'assignmentfilter': assignmentFilter,
         'assignments': assignments
