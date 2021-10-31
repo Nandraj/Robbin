@@ -1,6 +1,6 @@
 asgiref==3.3.4
 autopep8==1.5.6
-Django==3.2.5
+Django==3.2.8
 django-filter==2.4.0
 django-queryset-csv==1.1.0
 django-widget-tweaks==1.4.8
@@ -8,6 +8,6 @@ Markdown==3.3.4
 pycodestyle==2.7.0
 pytz==2021.1
 six==1.16.0
-sqlparse==0.4.1
+sqlparse==0.4.2
 toml==0.10.2
 unicodecsv==0.14.1
