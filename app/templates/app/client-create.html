@@ -27,7 +27,11 @@
         </div>
         <div class="form-group mb-2">
             <label>{{ form.contact.label }}</label>
-            {{ form.contact | add_class:"form-control"}}
+            <select name="contact" id="id_contact" class="multi-select-pillbox form-control" multiple="multiple">
+                {% for c in form.contact %}
+                    {{ c }}
+                {% endfor %}
+            </select>
             {% if form.contact.errors %}
             <p class="text-danger">
                 {{ form.contact.errors|striptags }}
@@ -156,6 +160,12 @@
             sideBySide: true,
             format: 'YYYY-MM-DD'
         })
+    })
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.multi-select-pillbox').select2()
     })
 </script>
 
