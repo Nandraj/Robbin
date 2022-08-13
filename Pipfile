@@ -15,7 +15,7 @@ six = "==1.16.0"
 sqlparse = "==0.4.2"
 toml = "==0.10.2"
 unicodecsv = "==0.14.1"
-Django = "==3.2.8"
+Django = "==3.2.15"
 Markdown = "==3.3.4"
 environs = {extras = ["django"], version = "*"}
 psycopg2-binary = "*"
