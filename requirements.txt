@@ -1,7 +1,7 @@
 asgiref==3.7.2
 dj-database-url==2.1.0
 dj-email-url==1.0.6
-Django==3.2.15
+Django==3.2.23
 django-cache-url==3.4.5
 django-filter==2.4.0
 django-queryset-csv==1.1.0
