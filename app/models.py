@@ -31,8 +31,7 @@ class Client(models.Model):
     tan = models.CharField(max_length=20, null=True, blank=True)
     gstin = models.CharField(max_length=15, null=True, blank=True)
     iec = models.CharField(max_length=15, null=True, blank=True)
-    income_tax_password = models.CharField(
-        max_length=30, null=True, blank=True)
+    income_tax_password = models.CharField(max_length=30, null=True, blank=True)
     gst_userid = models.CharField(max_length=30, null=True, blank=True)
     gst_password = models.CharField(max_length=30, null=True, blank=True)
     remark = models.CharField(max_length=200, null=True, blank=True)
@@ -89,9 +88,9 @@ class Assignment(models.Model):
     year = models.ForeignKey(Year, null=True, on_delete=models.SET_NULL)
     period = models.ForeignKey(Period, null=True, on_delete=models.SET_NULL)
     task = models.ForeignKey(Task, null=True, on_delete=models.SET_NULL)
-    employee = models.ForeignKey(
-        Employee, null=True, on_delete=models.SET_NULL)
+    employee = models.ForeignKey(Employee, null=True, on_delete=models.SET_NULL)
     status = models.ForeignKey(Status, null=True, on_delete=models.SET_NULL)
+    instruction = models.TextField(null=True)
 
     def __str__(self):
         return f'{self.id} : {self.client} - {self.year} - {self.period} - {self.employee} - {self.status}'

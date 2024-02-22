@@ -675,7 +675,8 @@ def assignmentStatusUpdate(request, pk):
         'period': assignment.period,
         'task': assignment.task,
         'employee': assignment.employee,
-        'form': form
+        'instruction': assignment.instruction,
+        'form': form,
     }
     return render(request, 'app/assignment-status-update.html', context)
 
