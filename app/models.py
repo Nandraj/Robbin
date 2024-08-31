@@ -93,4 +93,4 @@ class Assignment(models.Model):
     instruction = models.TextField(null=True)
 
     def __str__(self):
-        return f'{self.id} : {self.client} - {self.year} - {self.period} - {self.employee} - {self.status}'
+        return f"{self.id} : {self.client} - {self.year} - {self.period} - {self.employee} - {self.status}"

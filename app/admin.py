@@ -8,13 +8,13 @@ from .models import (
     Task,
     Status,
     Employee,
-    Assignment
+    Assignment,
 )
 
 
-admin.site.site_header = 'Robbin'
-admin.site.site_title = 'Robbin'
-admin.site.index_title = 'Welcome to the Robbin'
+admin.site.site_header = "Robbin"
+admin.site.site_title = "Robbin"
+admin.site.index_title = "Welcome to the Robbin"
 
 
 admin.site.register(Contact)
