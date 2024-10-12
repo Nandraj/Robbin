@@ -22,7 +22,7 @@ def assignment(request):
     assignmentFilter = AssignmentFilter(request.GET, assignments)
     assignments = assignmentFilter.qs.order_by("-id")
     context = {"assignmentfilter": assignmentFilter, "assignments": assignments}
-    return render(request, "app/assignment.html", context)
+    return render(request, "assignments/list.html", context)
 
 
 @login_required(login_url="login")
@@ -35,7 +35,7 @@ def assignmentCreate(request):
             return redirect("assignment_create")
         else:
             context = {"form": form}
-            return render(request, "app/assignment-create.html", context)
+            return render(request, "assignments/create.html", context)
     try:
         form = AssignmentForm(
             initial={
@@ -46,7 +46,7 @@ def assignmentCreate(request):
     except:
         form = AssignmentForm()
     context = {"form": form}
-    return render(request, "app/assignment-create.html", context)
+    return render(request, "assignments/create.html", context)
 
 
 @login_required(login_url="login")
@@ -60,7 +60,7 @@ def assignmentUpdate(request, pk):
             form.save()
             return redirect("assignment")
     context = {"form": form}
-    return render(request, "app/assignment-update.html", context)
+    return render(request, "assignments/update.html", context)
 
 
 @login_required(login_url="login")
@@ -83,7 +83,7 @@ def assignmentStatusUpdate(request, pk):
         "instruction": assignment.instruction,
         "form": form,
     }
-    return render(request, "app/assignment-status-update.html", context)
+    return render(request, "assignments/status-update.html", context)
 
 
 @login_required(login_url="login")
@@ -98,4 +98,4 @@ def assignmentRemove(request, pk):
         "table": "Assignment",
         "item": f"{asn.id}. {asn.client}-{asn.year}-{asn.period}-{asn.task}",
     }
-    return render(request, "app/delete.html", context)
+    return render(request, "delete.html", context)

@@ -29,13 +29,13 @@ def groupPage(request):
                 "form": form,
                 "groups": groups,
             }
-            return render(request, "app/group.html", context)
+            return render(request, "users/group-list-and-create.html", context)
     form = GroupForm()
     context = {
         "form": form,
         "groups": groups,
     }
-    return render(request, "app/group.html", context)
+    return render(request, "users/group-list-and-create.html", context)
 
 
 @login_required(login_url="login")
@@ -49,7 +49,7 @@ def groupUpdate(request, pk):
             form.save()
             return redirect("group")
     context = {"form": form}
-    return render(request, "app/group-update.html", context)
+    return render(request, "users/group-update.html", context)
 
 
 @login_required(login_url="login")
@@ -60,7 +60,7 @@ def groupRemove(request, pk):
         group.delete()
         return redirect("group")
     context = {"table": "Group", "item": group.name}
-    return render(request, "app/delete.html", context)
+    return render(request, "delete.html", context)
 
 
 def loginPage(request):
@@ -81,7 +81,7 @@ def loginPage(request):
         return redirect("home")
 
     context = {}
-    return render(request, "app/login.html", context)
+    return render(request, "users/login.html", context)
 
 
 @login_required(login_url="login")
@@ -95,7 +95,7 @@ def logoutUser(request):
 def employee(request):
     employees = Employee.objects.all().order_by("-id")
     context = {"employees": employees}
-    return render(request, "app/employee.html", context)
+    return render(request, "users/employee-list.html", context)
 
 
 @login_required(login_url="login")
@@ -114,10 +114,10 @@ def employeeCreate(request):
             return redirect("employee")
         else:
             context = {"form": form}
-            return render(request, "app/employee-create.html", context)
+            return render(request, "users/employee-create.html", context)
     form = CreateEmployeeForm()
     context = {"form": form}
-    return render(request, "app/employee-create.html", context)
+    return render(request, "users/employee-create.html", context)
 
 
 @login_required(login_url="login")
@@ -154,7 +154,7 @@ def employeeUpdate(request, pk):
             employee.save()
             return redirect("employee")
     context = {"form": form}
-    return render(request, "app/employee-update.html", context)
+    return render(request, "users/employee-update.html", context)
 
 
 @login_required(login_url="login")
@@ -171,11 +171,11 @@ def employeePasswordReset(request, pk):
             return redirect("employee")
         else:
             context = {"form": form}
-            return render(request, "app/employee-password-reset.html", context)
+            return render(request, "users/employee-password-reset.html", context)
     else:
         form = EmployeePasswordResetForm()
         context = {"form": form}
-        return render(request, "app/employee-password-reset.html", context)
+        return render(request, "users/employee-password-reset.html", context)
 
 
 @login_required(login_url="login")
@@ -187,7 +187,7 @@ def employeeRemove(request, pk):
         user.delete()
         return redirect("employee")
     context = {"table": "Employee", "item": employee.name}
-    return render(request, "app/delete.html", context)
+    return render(request, "delete.html", context)
 
 
 @login_required(login_url="login")
@@ -201,8 +201,8 @@ def changePassword(request):
             return redirect("login")
         else:
             context = {"form": form}
-            return render(request, "app/change-password.html", context)
+            return render(request, "users/change-password.html", context)
     else:
         form = PasswordChangeForm(request.user)
         context = {"form": form}
-        return render(request, "app/change-password.html", context)
+        return render(request, "users/change-password.html", context)

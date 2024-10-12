@@ -15,7 +15,7 @@ def contact(request):
     contactFilter = ContactFilter(request.GET, queryset=contacts)
     contacts = contactFilter.qs
     context = {"contactfilter": contactFilter, "contacts": contacts}
-    return render(request, "app/contact.html", context)
+    return render(request, "contacts/list.html", context)
 
 
 @login_required(login_url="login")
@@ -27,10 +27,10 @@ def contactCreate(request):
             return redirect("contact")
         else:
             context = {"form": form}
-            return render(request, "app/contact-create.html", context)
+            return render(request, "contacts/create.html", context)
     form = ContactForm()
     context = {"form": form}
-    return render(request, "app/contact-create.html", context)
+    return render(request, "contacts/create.html", context)
 
 
 @login_required(login_url="login")
@@ -44,7 +44,7 @@ def contactUpdate(request, pk):
             form.save()
             return redirect("contact")
     context = {"form": form}
-    return render(request, "app/contact-update.html", context)
+    return render(request, "contacts/update.html", context)
 
 
 @login_required(login_url="login")
@@ -55,4 +55,4 @@ def contactRemove(request, pk):
         contact.delete()
         return redirect("contact")
     context = {"table": "Contact", "item": contact.name}
-    return render(request, "app/delete.html", context)
+    return render(request, "delete.html", context)

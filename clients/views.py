@@ -17,7 +17,7 @@ def client(request):
         "clientfilter": clientFilter,
         "clients": clients,
     }
-    return render(request, "app/client.html", context)
+    return render(request, "clients/list.html", context)
 
 
 @login_required(login_url="login")
@@ -30,10 +30,10 @@ def clientCreate(request):
             return redirect("client")
         else:
             context = {"form": form}
-            return render(request, "app/client-create.html", context)
+            return render(request, "clients/create.html", context)
     form = ClientForm()
     context = {"form": form}
-    return render(request, "app/client-create.html", context)
+    return render(request, "clients/create.html", context)
 
 
 @login_required(login_url="login")
@@ -41,7 +41,7 @@ def clientView(request, pk):
     client = Client.objects.get(id=pk)
     form = ClientForm(instance=client)
     context = {"form": form}
-    return render(request, "app/client-view.html", context)
+    return render(request, "clients/single-view.html", context)
 
 
 @login_required(login_url="login")
@@ -54,7 +54,7 @@ def clientUpdate(request, pk):
             form.save()
             return redirect("client")
     context = {"form": form}
-    return render(request, "app/client-update.html", context)
+    return render(request, "clients/update.html", context)
 
 
 @login_required(login_url="login")
@@ -65,4 +65,4 @@ def clientRemove(request, pk):
         client.delete()
         return redirect("client")
     context = {"table": "Client", "item": client.name}
-    return render(request, "app/delete.html", context)
+    return render(request, "delete.html", context)

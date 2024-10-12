@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load widget_tweaks %}
+<div class="card card-body mt-4 mb-4">
+    <h3>Years</h3>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.number | add_class:"form-control" | attr:"placeholder:YYYY" | attr:"type:number" | attr:"min:2000"}}
+            {% if form.number.errors %}
+            <p class="text-danger">
+                {{ form.number.errors|striptags }}
+            </p>
+            {% endif %}
+        </div>
+        <div class="form-group mt-2">
+            <button type="submit" class="btn btn-primary">
+                Add
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if years %}
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Year</th>
+            <th />
+        </tr>
+    </thead>
+    <tbody>
+        {% for yr in years %}
+        <tr>
+            <td>{{ yr.id }}</td>
+            <td>{{ yr.number }}</td>
+            <td>
+                <a class="btn btn-primary btn-sm m-1" href="{% url 'year_update' yr.id %}"><i
+                        class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger btn-sm m-1" href="{% url 'year_delete' yr.id %}"><i
+                        class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

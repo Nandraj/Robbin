@@ -16,7 +16,7 @@ from .forms import OrgTypeForm, StatusForm, YearForm, PeriodForm, TaskForm
 @login_required(login_url="login")
 def home(request):
     context = {}
-    return render(request, "app/home.html", context)
+    return render(request, "masters/home.html", context)
 
 
 @login_required(login_url="login")
@@ -32,13 +32,13 @@ def orgType(request):
                 "form": form,
                 "organizations": organizations,
             }
-            return render(request, "app/org-type.html", context)
+            return render(request, "masters/org-type-list-and-create.html", context)
     form = OrgTypeForm()
     context = {
         "form": form,
         "organizations": organizations,
     }
-    return render(request, "app/org-type.html", context)
+    return render(request, "masters/org-type-list-and-create.html", context)
 
 
 @login_required(login_url="login")
@@ -52,7 +52,7 @@ def orgTypeUpdate(request, pk):
             form.save()
             return redirect("org_type")
     context = {"form": form}
-    return render(request, "app/org-type-update.html", context)
+    return render(request, "masters/org-type-update.html", context)
 
 
 @login_required(login_url="login")
@@ -63,7 +63,7 @@ def orgTypeRemove(request, pk):
         org_type.delete()
         return redirect("org_type")
     context = {"table": "Org Type", "item": org_type.org_type}
-    return render(request, "app/delete.html", context)
+    return render(request, "delete.html", context)
 
 
 @login_required(login_url="login")
@@ -76,10 +76,10 @@ def year(request):
             form.save()
         else:
             context = {"form": form, "years": years}
-            return render(request, "app/year.html", context)
+            return render(request, "masters/year-list-and-create.html", context)
     form = YearForm()
     context = {"form": form, "years": years}
-    return render(request, "app/year.html", context)
+    return render(request, "masters/year-list-and-create.html", context)
 
 
 @login_required(login_url="login")
@@ -93,7 +93,7 @@ def yearUpdate(request, pk):
             form.save()
             return redirect("year")
     context = {"form": form}
-    return render(request, "app/year-update.html", context)
+    return render(request, "masters/year-update.html", context)
 
 
 @login_required(login_url="login")
@@ -104,7 +104,7 @@ def yearRemove(request, pk):
         year.delete()
         return redirect("year")
     context = {"table": "Year", "item": year.number}
-    return render(request, "app/delete.html", context)
+    return render(request, "delete.html", context)
 
 
 @login_required(login_url="login")
@@ -117,10 +117,10 @@ def period(request):
             form.save()
         else:
             context = {"periods": periods, "form": form}
-            return render(request, "app/period.html", context)
+            return render(request, "masters/period-list-and-create.html", context)
     form = PeriodForm()
     context = {"periods": periods, "form": form}
-    return render(request, "app/period.html", context)
+    return render(request, "masters/period-list-and-create.html", context)
 
 
 @login_required(login_url="login")
@@ -134,7 +134,7 @@ def periodUpdate(request, pk):
             form.save()
             return redirect("period")
     context = {"form": form}
-    return render(request, "app/period-update.html", context)
+    return render(request, "masters/period-update.html", context)
 
 
 @login_required(login_url="login")
@@ -145,7 +145,7 @@ def periodRemove(request, pk):
         period.delete()
         return redirect("period")
     context = {"table": "Period", "item": period.period}
-    return render(request, "app/delete.html", context)
+    return render(request, "delete.html", context)
 
 
 @login_required(login_url="login")
@@ -158,10 +158,10 @@ def task(request):
             form.save()
         else:
             context = {"tasks": tasks, "form": form}
-            return render(request, "app/task.html", context)
+            return render(request, "masters/task-list-and-create.html", context)
     form = TaskForm()
     context = {"tasks": tasks, "form": form}
-    return render(request, "app/task.html", context)
+    return render(request, "masters/task-list-and-create.html", context)
 
 
 @login_required(login_url="login")
@@ -175,7 +175,7 @@ def taskUpdate(request, pk):
             form.save()
             return redirect("task")
     context = {"form": form}
-    return render(request, "app/task-update.html", context)
+    return render(request, "masters/task-update.html", context)
 
 
 @login_required(login_url="login")
@@ -186,7 +186,7 @@ def taskRemove(request, pk):
         task.delete()
         return redirect("task")
     context = {"table": "Task", "item": task.task}
-    return render(request, "app/delete.html", context)
+    return render(request, "delete.html", context)
 
 
 @login_required(login_url="login")
@@ -199,10 +199,10 @@ def status(request):
             form.save()
         else:
             context = {"statuses": statuses, "form": form}
-            return render(request, "app/status.html", context)
+            return render(request, "masters/status-list-and-create.html", context)
     form = StatusForm()
     context = {"statuses": statuses, "form": form}
-    return render(request, "app/status.html", context)
+    return render(request, "masters/status-list-and-create.html", context)
 
 
 @login_required(login_url="login")
@@ -216,7 +216,7 @@ def statusUpdate(request, pk):
             form.save()
             return redirect("status")
     context = {"form": form}
-    return render(request, "app/status-update.html", context)
+    return render(request, "masters/status-update.html", context)
 
 
 @login_required(login_url="login")
@@ -227,7 +227,7 @@ def statusRemove(request, pk):
         status.delete()
         return redirect("status")
     context = {"table": "Status", "item": status.status}
-    return render(request, "app/delete.html", context)
+    return render(request, "delete.html", context)
 
 
 @login_required(login_url="login")
