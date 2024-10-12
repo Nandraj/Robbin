@@ -43,7 +43,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "app",
+    "users.apps.UsersConfig",
+    "masters.apps.MastersConfig",
+    "contacts.apps.ContactsConfig",
+    "clients.apps.ClientsConfig",
+    "assignments.apps.AssignmentsConfig",
     "widget_tweaks",
     "django_filters",
 ]
@@ -64,7 +68,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
