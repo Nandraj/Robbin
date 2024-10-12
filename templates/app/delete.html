@@ -1,0 +1,23 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+{% load widget_tweaks %}
+
+<h3>Delete {{ table }}</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-body">
+            <p>Are you sure you want to delete "{{ item }}" ?</p>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <a class="btn btn-warning" onclick="window.history.go(-1); return false;">Cancel</a>
+                <input class="btn btn-danger" type="submit" value="Confirm">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
